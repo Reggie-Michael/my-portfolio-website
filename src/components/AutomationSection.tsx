@@ -1,24 +1,66 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Settings, Bot, BarChart3, Clock } from 'lucide-react';
+import {
+  ArrowRight,
+  Settings,
+  Bot,
+  BarChart3,
+  CheckCircle,
+  Zap,
+  BarChart,
+  Play,
+} from 'lucide-react';
 
 const AutomationSection: React.FC = () => {
   const [activeNode, setActiveNode] = useState<number | null>(null);
   const [animationStep, setAnimationStep] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setAnimationStep(prev => (prev + 1) % 4);
-    }, 3000);
-    return () => clearInterval(timer);
+    const interval = setInterval(() => {
+      setAnimationStep(prev => {
+        console.log({ prev });
+        if (prev >= 5) {
+          // Changed from 4 to 5 to include the Monitor step
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, 1500);
+
+    return () => clearInterval(interval);
   }, []);
 
   const workflowNodes = [
-    { id: 1, label: 'Trigger', icon: Settings, position: { x: 10, y: 50 } },
-    { id: 2, label: 'Process', icon: BarChart3, position: { x: 35, y: 30 } },
-    { id: 3, label: 'Analyze', icon: Bot, position: { x: 35, y: 70 } },
-    { id: 4, label: 'Execute', icon: Clock, position: { x: 60, y: 50 } },
-    { id: 5, label: 'Monitor', icon: ArrowRight, position: { x: 85, y: 50 } },
+    {
+      id: 1,
+      label: 'Trigger',
+      icon: Play,
+      position: { x: 15, y: 55 },
+    },
+    {
+      id: 2,
+      label: 'Process',
+      icon: Settings,
+      position: { x: 37, y: 30 },
+    },
+    {
+      id: 3,
+      label: 'Validate',
+      icon: CheckCircle,
+      position: { x: 37, y: 70 },
+    },
+    {
+      id: 4,
+      label: 'Execute',
+      icon: Zap,
+      position: { x: 68, y: 57 },
+    },
+    {
+      id: 5,
+      label: 'Monitor',
+      icon: BarChart,
+      position: { x: 87, y: 57 },
+    },
   ];
 
   const automationServices = [
@@ -82,61 +124,72 @@ const AutomationSection: React.FC = () => {
             <svg
               className='absolute inset-0 h-full w-full'
               viewBox='0 0 100 100'
+              preserveAspectRatio='xMidYMid meet'
             >
               {/* Connection Lines */}
               <line
-                x1='15'
+                x1='40'
                 y1='50'
-                x2='30'
+                x2='52'
                 y2='30'
                 stroke='#d1d5db'
-                strokeWidth='1'
+                strokeWidth='0.8'
                 className={
-                  animationStep >= 0 ? 'stroke-gray-900 dark:stroke-white' : ''
+                  animationStep >= 1
+                    ? 'stroke-gray-900 transition-colors duration-500 dark:stroke-white'
+                    : ''
                 }
               />
               <line
-                x1='15'
+                x1='40'
                 y1='50'
-                x2='30'
+                x2='52'
                 y2='70'
                 stroke='#d1d5db'
-                strokeWidth='1'
+                strokeWidth='0.8'
                 className={
-                  animationStep >= 0 ? 'stroke-gray-900 dark:stroke-white' : ''
+                  animationStep >= 1
+                    ? 'stroke-gray-900 transition-colors duration-500 dark:stroke-white'
+                    : ''
                 }
               />
               <line
-                x1='40'
+                x1='60'
                 y1='30'
-                x2='55'
+                x2='72'
                 y2='50'
                 stroke='#d1d5db'
-                strokeWidth='1'
+                strokeWidth='0.8'
                 className={
-                  animationStep >= 1 ? 'stroke-gray-900 dark:stroke-white' : ''
+                  animationStep >= 2
+                    ? 'stroke-gray-900 transition-colors duration-500 dark:stroke-white'
+                    : ''
                 }
               />
               <line
-                x1='40'
+                x1='60'
                 y1='70'
-                x2='55'
+                x2='72'
                 y2='50'
                 stroke='#d1d5db'
-                strokeWidth='1'
+                strokeWidth='0.8'
                 className={
-                  animationStep >= 1 ? 'stroke-gray-900 dark:stroke-white' : ''
+                  animationStep >= 2
+                    ? 'stroke-gray-900 transition-colors duration-500 dark:stroke-white'
+                    : ''
                 }
               />
               <line
-                x1='65'
+                x1='98'
                 y1='50'
                 x2='80'
                 y2='50'
                 stroke='#d1d5db'
-                strokeWidth='1'
+                strokeWidth='0.8'
                 className={
-                  animationStep >= 2 ? 'stroke-gray-900 dark:stroke-white' : ''
+                  animationStep >= 3
+                    ? 'stroke-gray-900 transition-colors duration-500 dark:stroke-white'
+                    : ''
                 }
               />
             </svg>
@@ -145,7 +198,7 @@ const AutomationSection: React.FC = () => {
               <div
                 key={node.id}
                 className={`absolute -translate-x-1/2 -translate-y-1/2 transform cursor-pointer transition-all duration-300 ${
-                  activeNode === node.id ? 'scale-110' : 'hover:scale-105'
+                  activeNode === node.id ? 'z-10 scale-110' : 'hover:scale-105'
                 }`}
                 style={{
                   left: `${node.position.x}%`,
@@ -156,29 +209,49 @@ const AutomationSection: React.FC = () => {
                 }
               >
                 <div
-                  className={`flex h-12 w-12 items-center justify-center border-2 border-gray-200 bg-white transition-all duration-300 dark:border-gray-600 dark:bg-slate-800 ${
-                    animationStep >= node.id - 1
-                      ? 'border-gray-900 bg-gray-50 dark:border-white dark:bg-slate-700'
+                  className={`flex h-12 w-12 items-center justify-center rounded-full border-2 border-gray-200 bg-white shadow-sm transition-all duration-500 dark:border-gray-600 dark:bg-slate-800 ${
+                    animationStep >= node.id
+                      ? 'border-gray-900 bg-gray-50 shadow-md dark:border-white dark:bg-slate-700'
                       : ''
                   }`}
                 >
-                  <node.icon className='h-5 w-5 text-gray-600 dark:text-gray-400' />
+                  <node.icon
+                    className={`h-5 w-5 transition-colors duration-300 ${
+                      animationStep >= node.id
+                        ? 'text-gray-900 dark:text-white'
+                        : 'text-gray-600 dark:text-gray-400'
+                    }`}
+                  />
                 </div>
                 <div className='mt-3 text-center'>
-                  <span className='text-xs font-light text-gray-600 dark:text-gray-400'>
+                  <span
+                    className={`text-xs font-medium transition-colors duration-300 ${
+                      animationStep >= node.id
+                        ? 'text-gray-900 dark:text-white'
+                        : 'text-gray-600 dark:text-gray-400'
+                    }`}
+                  >
                     {node.label}
                   </span>
                 </div>
 
                 {activeNode === node.id && (
-                  <div className='absolute top-16 left-1/2 z-20 -translate-x-1/2 transform bg-gray-900 p-3 text-xs whitespace-nowrap text-white dark:bg-white dark:text-gray-900'>
-                    <div className='font-medium'>{node.label} Stage</div>
-                    <div className='mt-1 text-gray-300 dark:text-gray-600'>
-                      {node.id === 1 && 'Event detection & initiation'}
-                      {node.id === 2 && 'Data processing & validation'}
-                      {node.id === 3 && 'AI analysis & decision making'}
-                      {node.id === 4 && 'Action execution & response'}
-                      {node.id === 5 && 'Performance monitoring'}
+                  <div className='absolute top-16 left-1/2 z-30 -translate-x-1/2 transform'>
+                    <div className='relative rounded-md bg-gray-900 px-4 py-3 text-xs text-white shadow-lg dark:bg-white dark:text-gray-900'>
+                      {/* Arrow pointing up */}
+                      <div className='absolute -top-1 left-1/2 -translate-x-1/2 transform'>
+                        <div className='h-2 w-2 rotate-45 transform bg-gray-900 dark:bg-white'></div>
+                      </div>
+                      <div className='font-semibold whitespace-nowrap'>
+                        {node.label} Stage
+                      </div>
+                      <div className='mt-1 whitespace-nowrap text-gray-300 dark:text-gray-600'>
+                        {node.id === 1 && 'Event detection & initiation'}
+                        {node.id === 2 && 'Data processing & validation'}
+                        {node.id === 3 && 'AI analysis & decision making'}
+                        {node.id === 4 && 'Action execution & response'}
+                        {node.id === 5 && 'Performance monitoring & feedback'}
+                      </div>
                     </div>
                   </div>
                 )}

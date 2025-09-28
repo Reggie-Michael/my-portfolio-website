@@ -97,6 +97,8 @@ const ContentSection: React.FC = () => {
                     alt={project.title}
                     className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
                     layout='fill'
+                    // width={1000}
+                    // height={400}
                     objectFit='cover'
                   />
 

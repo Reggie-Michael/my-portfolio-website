@@ -58,7 +58,7 @@ const Testimonial = () => {
                 </span>
               </div>
 
-              <p className='mb-6 text-sm leading-relaxed font-light tracking-wide text-slate-600 italic dark:text-slate-300'>
+              <p className='dark:text-slate-300e mb-6 max-h-28 overflow-y-auto text-sm leading-relaxed font-light tracking-wide text-slate-600 italic lg:max-h-48'>
                 &quot;{testimonial.review}&quot;
               </p>
 

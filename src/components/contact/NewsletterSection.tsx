@@ -78,18 +78,128 @@ const NewsletterSection: React.FC = () => {
 
 export const NewsLetterForm = ({}) => {
   const [email, setEmail] = useState('');
+  const [validationError, setValidationError] = useState('');
+  const [touched, setTouched] = useState(false);
+
   const { submitForm, isSubmitting, error, success } = useSupabaseForm({
     table: 'newsletter_subscriptions',
     emailType: 'newsletter',
     onSuccess: () => {
       setEmail('');
+      setValidationError('');
+      setTouched(false);
     },
   });
 
+  // Email validation function
+  const validateEmail = (email: string): string => {
+    if (!email || email.trim().length === 0) {
+      return 'Email is required';
+    }
+
+    const trimmedEmail = email.trim();
+
+    // Basic email regex validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      return 'Please enter a valid email address';
+    }
+
+    // Length validation
+    if (trimmedEmail.length > 100) {
+      return 'Email must be less than 100 characters';
+    }
+
+    // Check for common invalid patterns
+    if (
+      trimmedEmail.includes('..') ||
+      trimmedEmail.startsWith('.') ||
+      trimmedEmail.endsWith('.')
+    ) {
+      return 'Please enter a valid email address';
+    }
+
+    // Check for valid domain structure
+    const parts = trimmedEmail.split('@');
+    if (parts.length !== 2) {
+      return 'Please enter a valid email address';
+    }
+
+    const [localPart, domain] = parts;
+
+    if (localPart.length === 0 || localPart.length > 64) {
+      return 'Email address format is invalid';
+    }
+
+    if (domain.length === 0 || domain.length > 63) {
+      return 'Email domain is invalid';
+    }
+
+    // Check domain has at least one dot and valid characters
+    if (
+      !domain.includes('.') ||
+      domain.startsWith('.') ||
+      domain.endsWith('.')
+    ) {
+      return 'Please enter a valid email domain';
+    }
+
+    return '';
+  };
+
+  // Handle email input change
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+
+    // Clear validation error when user starts typing
+    if (validationError && touched) {
+      setValidationError('');
+    }
+
+    // Real-time validation for touched field
+    if (touched && newEmail.length > 0) {
+      const error = validateEmail(newEmail);
+      setValidationError(error);
+    }
+  };
+
+  // Handle field blur
+  const handleBlur = () => {
+    setTouched(true);
+    const error = validateEmail(email);
+    setValidationError(error);
+  };
+
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    submitForm({ email });
+
+    setTouched(true);
+    const error = validateEmail(email);
+    setValidationError(error);
+
+    if (!error) {
+      submitForm({ email: email.trim().toLowerCase() });
+    }
   };
+
+  // Get input field classes based on validation state
+  const getInputClassName = () => {
+    const baseClasses =
+      'flex-1 bg-white px-4 py-3 font-light text-slate-900 placeholder-slate-500 transition-colors duration-300 focus:outline-none dark:bg-slate-700 dark:text-slate-100 dark:placeholder-slate-400';
+
+    if (touched && validationError) {
+      return `${baseClasses} border border-red-500 focus:border-red-500 dark:border-red-400 dark:focus:border-red-400`;
+    }
+
+    if (touched && !validationError && email.length > 0) {
+      return `${baseClasses} border border-green-500 focus:border-green-500 dark:border-green-400 dark:focus:border-green-400`;
+    }
+
+    return `${baseClasses} border border-slate-200 focus:border-slate-400 dark:border-slate-600 dark:focus:border-slate-500`;
+  };
+
   return (
     <>
       {/* Success/Error Messages */}
@@ -118,29 +228,57 @@ export const NewsLetterForm = ({}) => {
           </div>
         </div>
       )}
+
       <form onSubmit={handleSubmit} className='mx-auto max-w-md'>
-        <div className='flex space-x-4'>
-          <input
-            type='email'
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-            className='flex-1 border border-slate-200 bg-white px-4 py-3 font-light text-slate-900 placeholder-slate-500 transition-colors duration-300 focus:border-slate-400 focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder-slate-400 dark:focus:border-slate-500'
-            placeholder='your@email.com'
-          />
-          <button
-            type='submit'
-            disabled={isSubmitting}
-            className='flex items-center space-x-2 bg-slate-900 px-6 py-3 font-light text-slate-100 transition-colors duration-300 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white'
-          >
-            <Send className='h-4 w-4' />
-            <span className='hidden sm:inline'>
-              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
-            </span>
-          </button>
+        <div className='space-y-2'>
+          <div className='flex space-x-4'>
+            <input
+              type='email'
+              value={email}
+              onChange={handleEmailChange}
+              onBlur={handleBlur}
+              required
+              className={getInputClassName()}
+              placeholder='your@email.com'
+              aria-invalid={touched && validationError ? 'true' : 'false'}
+              aria-describedby={
+                touched && validationError ? 'email-error' : undefined
+              }
+            />
+            <button
+              type='submit'
+              disabled={isSubmitting || (touched && !!validationError)}
+              className='flex items-center space-x-2 bg-slate-900 px-6 py-3 font-light text-slate-100 transition-colors duration-300 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white'
+            >
+              <Send className='h-4 w-4' />
+              <span className='hidden sm:inline'>
+                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+              </span>
+            </button>
+          </div>
+
+          {/* Validation Error Display */}
+          {touched && validationError && (
+            <div
+              className='flex items-center space-x-1 text-sm text-red-600 dark:text-red-400'
+              id='email-error'
+            >
+              <AlertCircle className='h-4 w-4' />
+              <span>{validationError}</span>
+            </div>
+          )}
+
+          {/* Success Validation Indicator */}
+          {touched && !validationError && email.length > 0 && (
+            <div className='flex items-center space-x-1 text-sm text-green-600 dark:text-green-400'>
+              <CheckCircle className='h-4 w-4' />
+              <span>Valid email address</span>
+            </div>
+          )}
         </div>
       </form>
     </>
   );
 };
+
 export default NewsletterSection;

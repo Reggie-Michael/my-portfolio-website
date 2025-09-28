@@ -10,20 +10,13 @@ export const metadata: Metadata = {
   title: 'Michael Emmanuel - DevOps Engineer & Full-Stack Developer',
   description:
     'Portfolio website of Michael Emmanuel, showcasing expertise in DevOps, full-stack development, and automation solutions.',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
+
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+
   openGraph: {
     title: 'Michael Emmanuel - DevOps Engineer & Full-Stack Developer',
     description:

@@ -9,7 +9,7 @@ const AboutPage: React.FC = () => {
   return (
     <>
       <AboutSection />
-      <PersonalBrandSection />e
+      <PersonalBrandSection />
       <LanguagesSection />
       <EducationSection />
       <ExperienceSection />

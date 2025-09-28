@@ -8,11 +8,13 @@ import ContentSection from '@/components/ContentSection';
 import AutomationSection from '@/components/AutomationSection';
 import DevelopmentSection from '@/components/DevelopmentSection';
 import DevOpsSection from '@/components/DevOpsSection';
+import { useRouter } from 'next/navigation';
 
 const HomePage: React.FC = () => {
+  const router = useRouter();
   return (
     <>
-      <HeroSection onSectionClick={section => console.log(section)} />
+      <HeroSection onSectionClick={section => router.push(`${section}`)} />
       <AboutPreview />
       <ServicesPreview />
       <LanguagesSection />

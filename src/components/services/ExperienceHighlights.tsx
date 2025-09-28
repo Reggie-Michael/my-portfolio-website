@@ -6,20 +6,20 @@ const ExperienceHighlights: React.FC = () => {
   const metrics = [
     {
       icon: Award,
-      value: '50+',
+      value: '10+',
       label: 'Projects Delivered',
       description: 'Successful project completions across various industries',
     },
     {
       icon: Users,
-      value: '100%',
+      value: '95%',
       label: 'Client Satisfaction',
       description:
         'Maintaining perfect client satisfaction through quality delivery',
     },
     {
       icon: TrendingUp,
-      value: '75%',
+      value: '55%',
       label: 'Efficiency Gain',
       description: 'Average improvement in client workflow efficiency',
     },

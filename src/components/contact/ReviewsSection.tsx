@@ -14,6 +14,10 @@ const ReviewsSection: React.FC = () => {
     review: '',
   });
   const [hoveredStar, setHoveredStar] = useState(0);
+  const [validationErrors, setValidationErrors] = useState<{
+    [key: string]: string;
+  }>({});
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
 
   const { submitForm, isSubmitting, error, success } = useSupabaseForm({
     table: 'reviews',
@@ -26,13 +30,120 @@ const ReviewsSection: React.FC = () => {
         project: '',
         review: '',
       });
+      setValidationErrors({});
+      setTouched({});
       setShowReviewForm(false);
     },
   });
 
+  // Validation rules
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const validateField = (field: string, value: any): string => {
+    switch (field) {
+      case 'name':
+        if (!value || value.trim().length === 0) {
+          return 'Name is required';
+        }
+        if (value.trim().length < 2) {
+          return 'Name must be at least 2 characters';
+        }
+        if (value.trim().length > 50) {
+          return 'Name must be less than 50 characters';
+        }
+        if (!/^[a-zA-Z\s'-]+$/.test(value.trim())) {
+          return 'Name can only contain letters, spaces, hyphens, and apostrophes';
+        }
+        return '';
+
+      case 'email':
+        if (!value || value.trim().length === 0) {
+          return 'Email is required';
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value.trim())) {
+          return 'Please enter a valid email address';
+        }
+        if (value.length > 100) {
+          return 'Email must be less than 100 characters';
+        }
+        return '';
+
+      case 'rating':
+        if (!value || value === 0) {
+          return 'Please select a rating';
+        }
+        if (value < 1 || value > 5) {
+          return 'Rating must be between 1 and 5 stars';
+        }
+        return '';
+
+      case 'project':
+        if (!value || value.trim().length === 0) {
+          return 'Please select a project or service';
+        }
+        return '';
+
+      case 'review':
+        if (!value || value.trim().length === 0) {
+          return 'Review is required';
+        }
+        if (value.trim().length < 10) {
+          return 'Review must be at least 10 characters';
+        }
+        if (value.trim().length > 1000) {
+          return 'Review must be less than 1000 characters';
+        }
+        return '';
+
+      default:
+        return '';
+    }
+  };
+
+  // Validate all fields
+  const validateForm = (): boolean => {
+    const errors: { [key: string]: string } = {};
+
+    Object.keys(reviewData).forEach(field => {
+      const error = validateField(
+        field,
+        reviewData[field as keyof typeof reviewData]
+      );
+      if (error) {
+        errors[field] = error;
+      }
+    });
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Handle field blur for real-time validation
+  const handleBlur = (field: string) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const error = validateField(
+      field,
+      reviewData[field as keyof typeof reviewData]
+    );
+    setValidationErrors(prev => ({ ...prev, [field]: error }));
+  };
+
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    submitForm(reviewData);
+
+    // Mark all fields as touched
+    const allTouched = Object.keys(reviewData).reduce(
+      (acc, key) => {
+        acc[key] = true;
+        return acc;
+      },
+      {} as { [key: string]: boolean }
+    );
+    setTouched(allTouched);
+
+    if (validateForm()) {
+      submitForm(reviewData);
+    }
   };
 
   const handleChange = (
@@ -42,7 +153,27 @@ const ReviewsSection: React.FC = () => {
   ) => {
     const { name, value } = e.target;
     const field = name.replace('review-', '');
+
     setReviewData(prev => ({ ...prev, [field]: value }));
+
+    // Clear validation error when user starts typing
+    if (validationErrors[field]) {
+      setValidationErrors(prev => ({ ...prev, [field]: '' }));
+    }
+
+    // Real-time validation for touched fields
+    if (touched[field]) {
+      const error = validateField(field, value);
+      setValidationErrors(prev => ({ ...prev, [field]: error }));
+    }
+  };
+
+  const handleRatingChange = (rating: number) => {
+    setReviewData(prev => ({ ...prev, rating }));
+    setTouched(prev => ({ ...prev, rating: true }));
+
+    const error = validateField('rating', rating);
+    setValidationErrors(prev => ({ ...prev, rating: error }));
   };
 
   const renderStars = (
@@ -60,17 +191,34 @@ const ReviewsSection: React.FC = () => {
                 ? 'fill-current text-yellow-400'
                 : 'text-slate-300 dark:text-slate-600'
             }`}
-            onClick={
-              interactive
-                ? () => setReviewData(prev => ({ ...prev, rating: star }))
-                : undefined
-            }
+            onClick={interactive ? () => handleRatingChange(star) : undefined}
             onMouseEnter={interactive ? () => setHoveredStar(star) : undefined}
             onMouseLeave={interactive ? () => setHoveredStar(0) : undefined}
           />
         ))}
       </div>
     );
+  };
+
+  const renderFieldError = (field: string) => {
+    if (touched[field] && validationErrors[field]) {
+      return (
+        <p className='mt-1 flex items-center text-sm text-red-600 dark:text-red-400'>
+          <AlertCircle className='mr-1 h-4 w-4' />
+          {validationErrors[field]}
+        </p>
+      );
+    }
+    return null;
+  };
+
+  const getFieldClassName = (field: string, baseClassName: string) => {
+    const hasError = touched[field] && validationErrors[field];
+    const errorClasses = hasError
+      ? 'border-red-500 focus:border-red-500 dark:border-red-400'
+      : 'border-slate-600 focus:border-slate-500';
+
+    return `${baseClassName} ${errorClasses}`;
   };
 
   return (
@@ -135,45 +283,59 @@ const ReviewsSection: React.FC = () => {
               <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                 <div>
                   <label className='mb-2 block text-sm font-light tracking-wide text-slate-600 dark:text-slate-300'>
-                    Your Name
+                    Your Name <span className='text-red-500'>*</span>
                   </label>
                   <input
                     type='text'
                     name='review-name'
                     value={reviewData.name}
                     onChange={handleChange}
+                    onBlur={() => handleBlur('name')}
                     placeholder='Michael Emmanuel'
                     required
-                    className='w-full border border-slate-600 bg-slate-100 px-4 py-3 font-light text-slate-700 transition-colors duration-300 focus:border-slate-500 focus:outline-none dark:bg-slate-700 dark:text-slate-100'
+                    className={getFieldClassName(
+                      'name',
+                      'w-full bg-slate-100 px-4 py-3 font-light text-slate-700 transition-colors duration-300 focus:outline-none dark:bg-slate-700 dark:text-slate-100'
+                    )}
                   />
+                  {renderFieldError('name')}
                 </div>
 
                 <div>
                   <label className='mb-2 block text-sm font-light tracking-wide text-slate-600 dark:text-slate-300'>
-                    Email
+                    Email <span className='text-red-500'>*</span>
                   </label>
                   <input
                     type='email'
                     name='review-email'
                     value={reviewData.email}
                     onChange={handleChange}
+                    onBlur={() => handleBlur('email')}
                     required
                     placeholder='michael@example.com'
-                    className='w-full border border-slate-600 bg-slate-100 px-4 py-3 font-light text-slate-700 transition-colors duration-300 focus:border-slate-500 focus:outline-none dark:bg-slate-700 dark:text-slate-100'
+                    className={getFieldClassName(
+                      'email',
+                      'w-full bg-slate-100 px-4 py-3 font-light text-slate-700 transition-colors duration-300 focus:outline-none dark:bg-slate-700 dark:text-slate-100'
+                    )}
                   />
+                  {renderFieldError('email')}
                 </div>
               </div>
 
               <div>
                 <label className='mb-2 block text-sm font-light tracking-wide text-slate-600 dark:text-slate-300'>
-                  Project/Service
+                  Project/Service <span className='text-red-500'>*</span>
                 </label>
                 <select
                   name='review-project'
                   value={reviewData.project}
                   onChange={handleChange}
+                  onBlur={() => handleBlur('project')}
                   required
-                  className='w-full border border-slate-600 bg-slate-100 px-4 py-3 font-light text-slate-700 transition-colors duration-300 focus:border-slate-500 focus:outline-none dark:bg-slate-700 dark:text-slate-100'
+                  className={getFieldClassName(
+                    'project',
+                    'w-full bg-slate-100 px-4 py-3 font-light text-slate-700 transition-colors duration-300 focus:outline-none dark:bg-slate-700 dark:text-slate-100'
+                  )}
                 >
                   <option value='' disabled>
                     Select a project or service
@@ -184,11 +346,12 @@ const ReviewsSection: React.FC = () => {
                     </option>
                   ))}
                 </select>
+                {renderFieldError('project')}
               </div>
 
               <div>
                 <label className='mb-2 block text-sm font-light tracking-wide text-slate-600 dark:text-slate-300'>
-                  Rating
+                  Rating <span className='text-red-500'>*</span>
                 </label>
                 <div className='flex items-center space-x-2'>
                   {renderStars(reviewData.rating, true, 'w-6 h-6')}
@@ -200,34 +363,51 @@ const ReviewsSection: React.FC = () => {
                       : 'Click to rate'}
                   </span>
                 </div>
+                {renderFieldError('rating')}
               </div>
 
               <div>
                 <label className='mb-2 block text-sm font-light tracking-wide text-slate-600 dark:text-slate-300'>
-                  Your Review
+                  Your Review <span className='text-red-500'>*</span>
+                  <span className='ml-2 text-xs text-slate-400'>
+                    ({reviewData.review.length}/1000)
+                  </span>
                 </label>
                 <textarea
                   name='review-review'
                   value={reviewData.review}
                   onChange={handleChange}
+                  onBlur={() => handleBlur('review')}
                   required
                   rows={4}
-                  className='w-full resize-none border border-slate-600 bg-slate-100 px-4 py-3 font-light text-slate-700 transition-colors duration-300 focus:border-slate-500 focus:outline-none dark:bg-slate-700 dark:text-slate-100'
+                  maxLength={1000}
+                  className={getFieldClassName(
+                    'review',
+                    'w-full resize-none bg-slate-100 px-4 py-3 font-light text-slate-700 transition-colors duration-300 focus:outline-none dark:bg-slate-700 dark:text-slate-100'
+                  )}
                   placeholder='Share your experience working with me...'
                 />
+                {renderFieldError('review')}
               </div>
 
               <div className='flex space-x-4'>
                 <button
                   type='submit'
-                  disabled={isSubmitting}
+                  disabled={
+                    isSubmitting ||
+                    Object.values(validationErrors).some(error => error !== '')
+                  }
                   className='bg-slate-800 px-6 py-3 font-light tracking-wide text-slate-100 transition-colors duration-300 hover:bg-slate-800/90 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white'
                 >
                   {isSubmitting ? 'Submitting...' : 'Submit Review'}
                 </button>
                 <button
                   type='button'
-                  onClick={() => setShowReviewForm(false)}
+                  onClick={() => {
+                    setShowReviewForm(false);
+                    setValidationErrors({});
+                    setTouched({});
+                  }}
                   className='border border-slate-600 px-6 py-3 font-light tracking-wide text-slate-600 transition-colors duration-300 hover:text-slate-500 dark:text-slate-300 dark:hover:border-slate-500'
                 >
                   Cancel
@@ -243,7 +423,6 @@ const ReviewsSection: React.FC = () => {
     </section>
   );
 };
-
 const services = [
   { value: 'Website', label: 'My Portfolio Website/Me' },
   { value: 'Full-Stack Development', label: 'Full-Stack Development' },

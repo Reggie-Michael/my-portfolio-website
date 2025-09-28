@@ -19,8 +19,7 @@ const DevelopmentSection: React.FC = () => {
       title: 'E-Commerce Platform',
       description:
         'Full-stack e-commerce solution with React, Node.js, and PostgreSQL',
-      image:
-        'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg',
       technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
       features: [
         'Payment Integration',
@@ -36,7 +35,7 @@ const DevelopmentSection: React.FC = () => {
       description:
         'Real-time collaboration tool with live updates and team features',
       image:
-        'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=600',
+        'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg',
       technologies: ['React', 'TypeScript', 'Socket.io', 'MongoDB'],
       features: [
         'Real-time Updates',
@@ -51,7 +50,7 @@ const DevelopmentSection: React.FC = () => {
       title: 'API Management System',
       description: 'Microservices architecture with Docker containerization',
       image:
-        'https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=600',
+        'https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg',
       technologies: ['Docker', 'Kubernetes', 'Redis', 'GraphQL'],
       features: [
         'Microservices',
@@ -127,7 +126,7 @@ const useRealTimeUpdates = (projectId) => {
         {/* Project Showcase */}
         <div className='mb-20 grid grid-cols-1 gap-16 lg:grid-cols-2'>
           {/* Project Display */}
-          <div className='space-y-8'>
+          <div className='space-y-6'>
             <div className='overflow-hidden bg-gray-900 shadow-sm dark:bg-slate-950'>
               {/* Browser Header */}
               <div className='flex items-center space-x-2 bg-gray-800 p-4 dark:bg-slate-800'>
@@ -145,11 +144,13 @@ const useRealTimeUpdates = (projectId) => {
               </div>
 
               {/* Project Image */}
-              <div className='relative'>
+              <div className='relative h-48 sm:h-64 md:h-80 lg:h-96'>
                 <Image
                   src={projects[activeProject].image}
                   alt={projects[activeProject].title}
-                  className='h-48 w-full object-cover'
+                  objectFit='cover'
+                  layout='fill'
+                  className='w-full object-cover'
                 />
                 <div className='absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent'></div>
                 <div className='absolute bottom-4 left-4'>
@@ -161,8 +162,8 @@ const useRealTimeUpdates = (projectId) => {
             </div>
 
             {/* Code Preview */}
-            <div className='overflow-x-auto bg-gray-900 p-6 font-mono text-sm dark:bg-slate-950'>
-              <div className='mb-4 flex items-center'>
+            <div className='relative max-h-36 overflow-x-auto overflow-y-auto bg-gray-900 p-6 font-mono text-sm dark:bg-slate-950'>
+              <div className='mb-4 flex items-center backdrop-blur-xs'>
                 <div className='mr-4 flex space-x-2'>
                   <div className='h-2.5 w-2.5 rounded-full bg-red-500'></div>
                   <div className='h-2.5 w-2.5 rounded-full bg-yellow-500'></div>
@@ -179,7 +180,7 @@ const useRealTimeUpdates = (projectId) => {
           </div>
 
           {/* Project Details */}
-          <div className='space-y-8'>
+          <div className='flex flex-col space-y-8'>
             {/* Project Navigation */}
             <div className='flex space-x-2'>
               {projects.map((project, index) => (
@@ -198,7 +199,7 @@ const useRealTimeUpdates = (projectId) => {
             </div>
 
             {/* Active Project Info */}
-            <div className='border border-gray-100 bg-gray-50 p-8 dark:border-gray-700 dark:bg-slate-800'>
+            <div className='max-h-[540px] flex-1 overflow-y-auto border border-gray-100 bg-gray-50 p-8 dark:border-gray-700 dark:bg-slate-800'>
               <h3 className='mb-4 text-xl font-medium text-gray-900 dark:text-white'>
                 {projects[activeProject].title}
               </h3>
@@ -222,7 +223,6 @@ const useRealTimeUpdates = (projectId) => {
                   ))}
                 </div>
               </div>
-
               {/* Features */}
               <div className='mb-8'>
                 <h4 className='mb-3 text-lg font-medium text-gray-900 dark:text-white'>

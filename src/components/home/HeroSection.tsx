@@ -121,7 +121,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onSectionClick }) => {
           {/* CTA Buttons */}
           <div className='flex flex-col gap-4 sm:flex-row'>
             <button
-              onClick={() => onSectionClick('development')}
+              onClick={() => onSectionClick('services')}
               className='transform bg-slate-900 px-8 py-3 font-light tracking-wide text-slate-100 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white'
             >
               View My Work

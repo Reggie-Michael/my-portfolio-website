@@ -1,19 +1,33 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Calendar } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  MessageCircleMore,
+} from 'lucide-react';
+import Link from 'next/link';
 
 const ContactInfo: React.FC = () => {
   const contactInfo = [
     {
       icon: Mail,
       title: 'Email',
-      value: 'hello@aradystcodex.dev',
-      href: 'mailto:hello@aradystcodex.dev',
+      value: 'codexmyst@gmail.com',
+      href: 'mailto:codexmyst@gmail.com',
+    },
+    {
+      icon: MessageCircleMore,
+      title: 'Chat',
+      value: '+234 8075 253 823 | WhatsApp',
+      href: 'https://wa.link/sjm89l',
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
+      value: '+228 71 74 99 74',
+      href: 'tel:+22871749974',
     },
     {
       icon: MapPin,
@@ -24,9 +38,17 @@ const ContactInfo: React.FC = () => {
   ];
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Calendar, href: '#', label: 'Schedule Call' },
+    {
+      name: 'GitHub',
+      icon: Github,
+      href: 'https://github.com/Reggie-Michael',
+    },
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
+      href: 'https://www.linkedin.com/in/emmanuel-michael-6b8942273/',
+    },
+    // { icon: Calendar, href: '#', label: 'Schedule Call' },
   ];
 
   return (
@@ -63,12 +85,14 @@ const ContactInfo: React.FC = () => {
                     {info.title}
                   </div>
                   {info.href ? (
-                    <a
+                    <Link
                       href={info.href}
+                      target={info.title == 'Chat' ? '_blank' : undefined}
+                      rel='noopener noreferrer'
                       className='text-lg font-light tracking-wide text-slate-100 transition-colors duration-300 hover:text-slate-300'
                     >
                       {info.value}
-                    </a>
+                    </Link>
                   ) : (
                     <div className='text-lg font-light tracking-wide text-slate-100'>
                       {info.value}
@@ -119,7 +143,7 @@ const ContactInfo: React.FC = () => {
               <div className='flex items-center space-x-2'>
                 <div className='h-2 w-2 rounded-full bg-purple-400'></div>
                 <span className='text-sm font-light tracking-wide text-slate-300'>
-                  Timezone: UTC-5 (EST)
+                  Timezone: UTC (GMT)
                 </span>
               </div>
             </div>

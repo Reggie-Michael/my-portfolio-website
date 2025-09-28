@@ -6,15 +6,20 @@ import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 
 const Navigation: React.FC = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
-  const isDarkMode = useMemo(() => theme === 'dark', [theme]);
+  const isDarkMode = useMemo(
+    () => (theme === 'system' ? resolvedTheme === 'dark' : theme === 'dark'),
+    [theme, resolvedTheme]
+  );
+
   const toggleDarkMode = useCallback(() => {
     setTheme(isDarkMode ? 'light' : 'dark');
   }, [isDarkMode, setTheme]);
+
   const isActiveRoute = (href: string) => {
     if (href === '/') {
       return pathname === '/';

@@ -7,10 +7,11 @@ const SkillsSection: React.FC = () => {
       category: 'Frontend Development',
       icon: Code,
       skills: [
-        { name: 'React & Next.js', level: 95 },
-        { name: 'TypeScript', level: 90 },
-        { name: 'Tailwind CSS', level: 95 },
-        { name: 'Vue.js', level: 80 },
+        { name: 'HTML & CSS', level: 95 },
+        { name: 'JavaScript (ES6+)', level: 88 },
+        { name: 'React & Next.js', level: 90 },
+        { name: 'TypeScript', level: 85 },
+        { name: 'Tailwind CSS', level: 90 },
       ],
     },
     {
@@ -18,19 +19,26 @@ const SkillsSection: React.FC = () => {
       icon: Database,
       skills: [
         { name: 'Node.js', level: 90 },
-        { name: 'Python', level: 85 },
-        { name: 'PostgreSQL', level: 88 },
-        { name: 'GraphQL', level: 82 },
+        { name: 'NestJs', level: 75 },
+        { name: 'Python', level: 80 },
+        { name: 'PostgreSQL', level: 82 },
+        { name: 'MongoDB', level: 78 },
+        { name: 'REST API Design', level: 80 },
+        { name: 'SQL (general)', level: 75 },
+        { name: 'Authentication & Authorization', level: 70 },
       ],
     },
     {
       category: 'DevOps & Cloud',
       icon: Cloud,
       skills: [
-        { name: 'AWS Services', level: 85 },
-        { name: 'Docker & Kubernetes', level: 88 },
-        { name: 'CI/CD Pipelines', level: 90 },
-        { name: 'Infrastructure as Code', level: 80 },
+        { name: 'AWS Services', level: 70 },
+        { name: 'Linux Server Management', level: 60 },
+        { name: 'Docker & Kubernetes', level: 48 },
+        { name: 'CI/CD Pipelines', level: 40 },
+        { name: 'Infrastructure as Code', level: 35 },
+        { name: 'Azure (basic)', level: 30 },
+        { name: 'Networking (pfSense, DNS, VLANs)', level: 25 },
       ],
     },
     {
@@ -38,29 +46,30 @@ const SkillsSection: React.FC = () => {
       icon: Bot,
       skills: [
         { name: 'Make.com', level: 95 },
-        { name: 'OpenAI Integration', level: 88 },
-        { name: 'Zapier', level: 90 },
-        { name: 'Python Automation', level: 85 },
+        { name: 'Voiceflow', level: 92 },
+        { name: 'Vapi.ai', level: 80 },
+        { name: 'Instantly.ai', level: 70 },
+        { name: 'OpenAI Integration', level: 85 },
+        { name: 'Python Automation', level: 82 },
       ],
     },
     {
       category: 'Content Creation',
       icon: Palette,
       skills: [
-        { name: 'Video Editing', level: 85 },
-        { name: 'Motion Graphics', level: 80 },
-        { name: 'Brand Design', level: 75 },
-        { name: 'Storytelling', level: 90 },
+        { name: 'Video Editing (Premiere Pro, CapCut)', level: 85 },
+        { name: 'After Effects (Learning)', level: 60 },
+        { name: 'AI Content Tools (MidJourney, etc.)', level: 75 },
+        { name: 'Scriptwriting', level: 80 },
+        { name: 'Storyboarding', level: 78 },
       ],
     },
     {
       category: 'Analytics & Monitoring',
       icon: BarChart,
       skills: [
-        { name: 'Grafana & Prometheus', level: 85 },
-        { name: 'Google Analytics', level: 80 },
-        { name: 'Performance Optimization', level: 88 },
-        { name: 'A/B Testing', level: 75 },
+        { name: 'Performance Optimization', level: 70 },
+        { name: 'Security Monitoring & Logging', level: 65 },
       ],
     },
   ];
@@ -94,7 +103,7 @@ const SkillsSection: React.FC = () => {
                 {category.category}
               </h3>
 
-              <div className='space-y-4'>
+              <div className='max-h-48 space-y-4 overflow-y-auto lg:max-h-72'>
                 {category.skills.map((skill, skillIndex) => (
                   <div key={skillIndex}>
                     <div className='mb-2 flex items-center justify-between'>

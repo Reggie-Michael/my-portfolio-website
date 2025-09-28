@@ -62,6 +62,8 @@ const PersonalBrandSection: React.FC = () => {
           <div className='mb-12'>
             <Image
               src={LogoTransparent}
+              width={1000}
+              height={400}
               alt='Aradyst Codex Logo'
               className='mx-auto mb-8 h-16 w-16 opacity-90'
             />
