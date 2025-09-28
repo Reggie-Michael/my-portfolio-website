@@ -39,12 +39,12 @@ const ContactInfo: React.FC = () => {
 
   const socialLinks = [
     {
-      name: 'GitHub',
+      label: 'GitHub',
       icon: Github,
       href: 'https://github.com/Reggie-Michael',
     },
     {
-      name: 'LinkedIn',
+      label: 'LinkedIn',
       icon: Linkedin,
       href: 'https://www.linkedin.com/in/emmanuel-michael-6b8942273/',
     },
