@@ -1,19 +1,19 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
 import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  Linkedin,
-  Github,
-  Calendar,
-  Bot,
-  Star,
-  MessageCircle,
   Bell,
+  Bot,
+  Calendar,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Send,
+  Star,
   Users,
 } from 'lucide-react';
+import React, { useState } from 'react';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -146,8 +146,6 @@ const ContactSection: React.FC = () => {
     { icon: Linkedin, href: '#', label: 'LinkedIn' },
     { icon: Calendar, href: '#', label: 'Schedule Call' },
   ];
-
-
 
   const renderStars = (
     rating: number,

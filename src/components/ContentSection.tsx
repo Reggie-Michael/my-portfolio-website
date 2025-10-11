@@ -266,6 +266,7 @@ const VideoPlayer = ({
       ref={videoRef}
       src={videoUrl}
       controls
+      autoPlay
       className='aspect-square size-full rounded-xl'
     />
   );
