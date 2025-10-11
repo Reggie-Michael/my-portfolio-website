@@ -1,5 +1,14 @@
+import {
+  BarChart,
+  Bot,
+  Cloud,
+  Code,
+  Database,
+  Layers,
+  Palette,
+} from 'lucide-react';
 import React from 'react';
-import { Code, Database, Cloud, Palette, Bot, BarChart } from 'lucide-react';
+import SkillProgress from './SkillCategoryAnimate';
 
 const SkillsSection: React.FC = () => {
   const skillCategories = [
@@ -79,6 +88,8 @@ const SkillsSection: React.FC = () => {
       <div className='mx-auto max-w-6xl px-6 lg:px-8'>
         <div className='section-header'>
           <div className='section-header-line'>
+            <Layers className='mr-3 h-5 w-5 text-slate-500 dark:text-slate-400' />
+
             <span className='text-xs font-light tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400'>
               Technical Skills
             </span>
@@ -105,22 +116,7 @@ const SkillsSection: React.FC = () => {
 
               <div className='max-h-48 space-y-4 overflow-y-auto lg:max-h-72'>
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className='mb-2 flex items-center justify-between'>
-                      <span className='text-sm font-light tracking-wide text-slate-700 dark:text-slate-300'>
-                        {skill.name}
-                      </span>
-                      <span className='text-xs font-light text-slate-500 dark:text-slate-400'>
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className='h-1 w-full bg-slate-200 dark:bg-slate-700'>
-                      <div
-                        className='h-1 bg-slate-900 transition-all duration-1000 ease-out dark:bg-slate-300'
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
-                  </div>
+                  <SkillProgress key={skillIndex} skill={skill} />
                 ))}
               </div>
             </div>

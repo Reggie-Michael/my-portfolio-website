@@ -1,6 +1,7 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronDown } from 'lucide-react';
+import Image from 'next/image';
+import React, { useEffect, useMemo, useState } from 'react';
 
 interface HeroSectionProps {
   onSectionClick: (section: string) => void;
@@ -81,9 +82,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onSectionClick }) => {
         className='animate-subtle-float absolute top-1/2 right-1/5 h-1 w-1 rounded-full bg-slate-300 opacity-15 dark:bg-slate-600'
         style={{ animationDelay: '4s' }}
       ></div>
-
-      <div className='relative z-10 mx-auto w-full max-w-6xl px-6 lg:px-8'>
-        <div className='max-w-4xl'>
+      {/* Hero Content */}
+      <div className='relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-12 px-6 lg:flex-row lg:px-8'>
+        <div className='max-w-3xl'>
           {/* Main Heading */}
           <div className='mb-12'>
             <h1 className='font-display mb-6 text-6xl leading-none font-extralight tracking-tight md:text-8xl'>
@@ -133,6 +134,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onSectionClick }) => {
               Get In Touch
             </button>
           </div>
+        </div>
+
+        {/* Right side Image */}
+        <div className='animate-fade-in relative hidden h-[480px] w-[380px] lg:block'>
+          <Image
+            objectFit='cover'
+            layout='fill'
+            src='/images/my-profile.png'
+            alt='Michael Emmanuel'
+            className='mask-person-shape h-full w-full border-2 border-slate-300 object-cover shadow-lg dark:border-slate-700'
+          />
         </div>
       </div>
 

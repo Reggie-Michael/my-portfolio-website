@@ -1,5 +1,14 @@
+import {
+  Award,
+  Code,
+  GraduationCap,
+  Heart,
+  MapPin,
+  User,
+  Users,
+} from 'lucide-react';
 import React from 'react';
-import { User, MapPin, Heart, GraduationCap } from 'lucide-react';
+import CountUpOnView from './CountUpView';
 
 const AboutSection: React.FC = () => {
   const skills = [
@@ -47,7 +56,7 @@ const AboutSection: React.FC = () => {
 
         <div className='grid grid-cols-1 items-start gap-20 lg:grid-cols-2'>
           {/* Profile Section */}
-          <div className='space-y-10'>
+          <div className='space-y-8'>
             <div className='border border-slate-200 bg-white p-8 transition-all duration-300 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-slate-600'>
               <div className='mb-8 flex items-start space-x-4'>
                 <User className='mt-1 h-6 w-6 flex-shrink-0 text-slate-600 dark:text-slate-400' />
@@ -125,8 +134,8 @@ const AboutSection: React.FC = () => {
           </div>
 
           {/* Skills Section */}
-          <div className='space-y-8'>
-            <h3 className='font-display mb-10 text-2xl font-extralight tracking-tight text-slate-900 dark:text-slate-100'>
+          <div className='space-y-7'>
+            <h3 className='font-display -mt-3 mb-6 text-2xl font-extralight tracking-tight text-slate-900 dark:text-slate-100'>
               Technical Expertise
             </h3>
 
@@ -152,31 +161,21 @@ const AboutSection: React.FC = () => {
             ))}
 
             {/* Experience Stats */}
-            <div className='mt-12 grid grid-cols-3 gap-6'>
-              <div className='border border-slate-200 bg-white p-6 text-center dark:border-slate-700 dark:bg-slate-900'>
-                <div className='font-display mb-1 text-2xl font-extralight tracking-tight text-slate-900 dark:text-slate-100'>
-                  5+
+            <div className='mt-4 grid grid-cols-3 gap-6'>
+              {AboutHighlights.map((highlight, index) => (
+                <div
+                  key={index}
+                  className='group border border-slate-200 bg-white p-4 text-center transition-all duration-300 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-slate-600'
+                >
+                  <div className='font-display mb-2 text-3xl font-extralight tracking-tight text-slate-900 dark:text-slate-100'>
+                    <CountUpOnView value={+highlight.value} />
+                    {highlight.suffix}
+                  </div>
+                  <div className='font-light tracking-wide text-slate-600 dark:text-slate-400'>
+                    {highlight.label}
+                  </div>
                 </div>
-                <div className='text-sm font-light tracking-wide text-slate-600 dark:text-slate-300'>
-                  Years Experience
-                </div>
-              </div>
-              <div className='border border-slate-200 bg-white p-6 text-center dark:border-slate-700 dark:bg-slate-900'>
-                <div className='font-display mb-1 text-2xl font-extralight tracking-tight text-slate-900 dark:text-slate-100'>
-                  50+
-                </div>
-                <div className='text-sm font-light tracking-wide text-slate-600 dark:text-slate-300'>
-                  Projects Completed
-                </div>
-              </div>
-              <div className='border border-slate-200 bg-white p-6 text-center dark:border-slate-700 dark:bg-slate-900'>
-                <div className='font-display mb-1 text-2xl font-extralight tracking-tight text-slate-900 dark:text-slate-100'>
-                  100%
-                </div>
-                <div className='text-sm font-light tracking-wide text-slate-600 dark:text-slate-300'>
-                  Client Satisfaction
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -184,5 +183,11 @@ const AboutSection: React.FC = () => {
     </section>
   );
 };
+
+export const AboutHighlights = [
+  { icon: Code, value: 4, suffix: '+', label: 'Years Experience' },
+  { icon: Award, value: 20, suffix: '+', label: 'Projects Completed' },
+  { icon: Users, value: 89, suffix: '%', label: 'Client Satisfaction' },
+];
 
 export default AboutSection;

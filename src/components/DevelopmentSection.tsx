@@ -1,14 +1,14 @@
 'use client';
-import React, { useState } from 'react';
 import {
   Code2,
+  Database,
   ExternalLink,
   Github,
-  Smartphone,
   Globe,
-  Database,
+  Smartphone,
 } from 'lucide-react';
 import Image from 'next/image';
+import React, { useState } from 'react';
 
 const DevelopmentSection: React.FC = () => {
   const [activeProject, setActiveProject] = useState(0);
@@ -16,49 +16,68 @@ const DevelopmentSection: React.FC = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
+      title: 'School Contact & Feedback System',
       description:
-        'Full-stack e-commerce solution with React, Node.js, and PostgreSQL',
-      image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg',
-      technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+        'A communication platform built for schools to streamline interactions between students, parents, staff, and administrators. It allows users to send feedback, complaints, or suggestions directly to the school, with automated email responses for every submission.',
+      image: '/images/school-website-preview.png',
+      technologies: ['React', 'Next.js', 'TailwindCSS', 'Supabase'],
       features: [
-        'Payment Integration',
-        'Admin Dashboard',
-        'Inventory Management',
-        'Mobile Responsive',
+        'Feedback & Complaint Management',
+        'Automated Email Responses',
+        'Role-based User Communication (Students, Parents, Staff)',
+        'Admin Dashboard for Message Tracking',
       ],
       type: 'Full Stack',
+      websiteLink: 'https://rv-contact-form.vercel.app/', // add link if live
+      githubLink: 'https://github.com/Reggie-Michael/RV-Contact-Form',
     },
     {
       id: 2,
-      title: 'Task Management App',
+      title: 'Construction Company Form Sales Platform',
       description:
-        'Real-time collaboration tool with live updates and team features',
-      image:
-        'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg',
-      technologies: ['React', 'TypeScript', 'Socket.io', 'MongoDB'],
+        'A custom platform for a construction company to sell online application forms for available spaces in ongoing building projects. It includes an affiliate system where agents can register and earn from shared referral links when buyers purchase forms.',
+      image: '/images/tido-website-preview.png',
+      technologies: ['Next.js', 'Material UI', 'MongoDB', 'Paystack'],
       features: [
-        'Real-time Updates',
-        'Team Collaboration',
-        'File Sharing',
-        'Progress Tracking',
+        'Online Form Sales & Payment Integration',
+        'Agent Referral & Commission Tracking',
+        'Secure Buyer Registration',
+        'Responsive Design for All Devices',
       ],
       type: 'Web App',
+      websiteLink: 'https://www.tidbuilds.net',
     },
     {
       id: 3,
-      title: 'API Management System',
-      description: 'Microservices architecture with Docker containerization',
-      image:
-        'https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg',
-      technologies: ['Docker', 'Kubernetes', 'Redis', 'GraphQL'],
+      title: 'AfRipul Group Company Website',
+      description:
+        'Official company website for AfRipul Group — designed to showcase the brand, highlight its departments, and present company details in a professional, responsive layout.',
+      image: '/images/afr-website-preview.png',
+      technologies: ['Next.js', 'TailwindCSS', 'TypeScript'],
       features: [
-        'Microservices',
-        'Auto-scaling',
-        'Monitoring',
-        'Load Balancing',
+        'Company Overview & Team Section',
+        'Department Pages',
+        'Responsive Design',
+        'SEO-Optimized Structure',
+      ],
+      type: 'Frontend',
+      websiteLink: 'https://www.afripulgroup.com',
+    },
+    {
+      id: 4,
+      title: 'Finance Tracker Backend',
+      description:
+        'A backend API built for a finance tracking application that helps users manage their income, expenses, and analytics. Includes advanced transaction locking, automated summaries, and secure JWT-based authentication.',
+      image: '/images/finance-website-preview.png',
+      technologies: ['Node.js', 'Express', 'PostgreSQL', 'JWT'],
+      features: [
+        'Transaction Analytics & Auto Locking',
+        'User Authentication & Authorization',
+        'Expense & Income Management',
+        'RESTful API with Secure Endpoints',
       ],
       type: 'Backend',
+      websiteLink: 'https://real-finance-font-end-nfpu.vercel.app/',
     },
   ];
 
@@ -107,7 +126,7 @@ const useRealTimeUpdates = (projectId) => {
       <div className='mx-auto max-w-6xl px-6 lg:px-8'>
         {/* Section Header */}
         <div className='mb-20 text-center'>
-          <div className='mb-6 flex items-center justify-center'>
+          <div className='section-header-line'>
             <Code2 className='mr-3 h-6 w-6 text-gray-600 dark:text-gray-400' />
             <span className='text-sm font-light tracking-wider text-gray-600 uppercase dark:text-gray-400'>
               Development
@@ -136,10 +155,7 @@ const useRealTimeUpdates = (projectId) => {
                   <div className='h-2.5 w-2.5 rounded-full bg-green-500'></div>
                 </div>
                 <div className='ml-4 bg-gray-700 px-3 py-1 font-mono text-xs text-gray-300 dark:bg-slate-700'>
-                  {projects[activeProject].title
-                    .toLowerCase()
-                    .replace(/\s+/g, '')}
-                  .app
+                  {projects[activeProject].websiteLink}
                 </div>
               </div>
 
@@ -148,9 +164,10 @@ const useRealTimeUpdates = (projectId) => {
                 <Image
                   src={projects[activeProject].image}
                   alt={projects[activeProject].title}
+                  key={`Image-${projects[activeProject].image}-${activeProject}`}
                   objectFit='cover'
                   layout='fill'
-                  className='w-full object-cover'
+                  className='animate-fade-in-up w-full object-cover'
                 />
                 <div className='absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent'></div>
                 <div className='absolute bottom-4 left-4'>
@@ -242,14 +259,36 @@ const useRealTimeUpdates = (projectId) => {
 
               {/* Action Buttons */}
               <div className='flex space-x-4'>
-                <button className='flex items-center space-x-2 bg-gray-900 px-6 py-3 font-medium text-white transition-colors duration-200 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100'>
+                <button
+                  className='flex cursor-pointer items-center space-x-2 bg-gray-900 px-6 py-3 font-medium text-white transition-colors duration-200 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100'
+                  onClick={e => {
+                    e.stopPropagation();
+                    window.open(
+                      projects[activeProject].websiteLink,
+                      '_blank',
+                      'noopener,noreferrer'
+                    );
+                  }}
+                >
                   <ExternalLink className='h-4 w-4' />
                   <span>Live Demo</span>
                 </button>
-                <button className='flex items-center space-x-2 border border-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors duration-200 hover:border-gray-400 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-500'>
-                  <Github className='h-4 w-4' />
-                  <span>View Code</span>
-                </button>
+                {projects[activeProject].githubLink && (
+                  <button
+                    className='flex cursor-pointer items-center space-x-2 border border-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors duration-200 hover:border-gray-400 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-500'
+                    onClick={e => {
+                      e.stopPropagation();
+                      window.open(
+                        projects[activeProject].githubLink,
+                        '_blank',
+                        'noopener,noreferrer'
+                      );
+                    }}
+                  >
+                    <Github className='h-4 w-4' />
+                    <span>View Code</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

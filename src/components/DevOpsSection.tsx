@@ -1,13 +1,14 @@
 'use client';
-import React, { useState } from 'react';
 import {
+  BarChart,
+  CheckCircle,
   Cloud,
   Server,
-  Shield,
-  BarChart,
   Settings,
-  CheckCircle,
+  Shield,
 } from 'lucide-react';
+import React, { useState } from 'react';
+import CountUpOnView from './CountUpView';
 
 const DevOpsSection: React.FC = () => {
   const [activeTab, setActiveTab] =
@@ -19,10 +20,10 @@ const DevOpsSection: React.FC = () => {
       description: 'Scalable, version-controlled infrastructure management',
       icon: Server,
       items: [
-        { name: 'AWS/GCP/Azure', status: 'Expert' },
-        { name: 'Terraform', status: 'Advanced' },
-        { name: 'Docker & Kubernetes', status: 'Expert' },
-        { name: 'Infrastructure Monitoring', status: 'Advanced' },
+        { name: 'AWS/GCP/Azure', status: 'Advanced' },
+        { name: 'Terraform', status: 'Beginner' },
+        { name: 'Docker & Kubernetes', status: 'Advanced' },
+        { name: 'Infrastructure Monitoring', status: 'Beginner' },
       ],
     },
     deployment: {
@@ -30,10 +31,10 @@ const DevOpsSection: React.FC = () => {
       description: 'Automated testing, building, and deployment workflows',
       icon: Settings,
       items: [
-        { name: 'GitHub Actions', status: 'Expert' },
-        { name: 'Jenkins', status: 'Advanced' },
-        { name: 'GitLab CI', status: 'Advanced' },
-        { name: 'Automated Testing', status: 'Expert' },
+        { name: 'GitHub Actions', status: 'Advanced' },
+        { name: 'Jenkins', status: 'Beginner' },
+        { name: 'GitLab CI', status: 'Beginner' },
+        { name: 'Automated Testing', status: 'Advanced' },
       ],
     },
     monitoring: {
@@ -41,9 +42,9 @@ const DevOpsSection: React.FC = () => {
       description: 'Real-time performance tracking and alerting systems',
       icon: BarChart,
       items: [
-        { name: 'Prometheus & Grafana', status: 'Expert' },
+        { name: 'Prometheus & Grafana', status: 'Starter' },
         { name: 'ELK Stack', status: 'Advanced' },
-        { name: 'Application Monitoring', status: 'Expert' },
+        { name: 'Application Monitoring', status: 'Advanced' },
         { name: 'Custom Dashboards', status: 'Advanced' },
       ],
     },
@@ -63,22 +64,26 @@ const DevOpsSection: React.FC = () => {
   const metrics = [
     {
       label: 'Deployment Frequency',
-      value: '50x',
+      value: '20',
+      suffix: 'x',
       description: 'Faster deployments',
     },
     {
       label: 'Lead Time',
-      value: '90%',
+      value: '70',
+      suffix: '%',
       description: 'Reduction in delivery time',
     },
     {
       label: 'Mean Time to Recovery',
-      value: '75%',
+      value: '55',
+      suffix: '%',
       description: 'Faster incident resolution',
     },
     {
       label: 'Change Failure Rate',
-      value: '60%',
+      value: '60',
+      suffix: '%',
       description: 'Fewer production issues',
     },
   ];
@@ -98,7 +103,7 @@ const DevOpsSection: React.FC = () => {
       <div className='mx-auto max-w-6xl px-6 lg:px-8'>
         {/* Section Header */}
         <div className='mb-20 text-center'>
-          <div className='mb-6 flex items-center justify-center'>
+          <div className='section-header-line'>
             <Cloud className='mr-3 h-6 w-6 text-gray-600 dark:text-gray-400' />
             <span className='text-sm font-light tracking-wider text-gray-600 uppercase dark:text-gray-400'>
               DevOps & Cloud
@@ -220,7 +225,10 @@ const DevOpsSection: React.FC = () => {
             {metrics.map(metric => (
               <div key={metric.label} className='text-center'>
                 <div className='h-full bg-white/10 p-6 transition-all duration-300 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10'>
-                  <div className='mb-2 text-2xl font-light'>{metric.value}</div>
+                  <div className='mb-2 text-2xl font-light'>
+                    <CountUpOnView value={+metric.value} />
+                    {metric.suffix}
+                  </div>
                   <div className='mb-1 text-lg font-medium'>{metric.label}</div>
                   <div className='text-sm font-light text-gray-300 dark:text-gray-400'>
                     {metric.description}
@@ -247,12 +255,18 @@ const DevOpsSection: React.FC = () => {
             {[
               'AWS',
               'Docker',
-              'Kubernetes',
-              'Terraform',
-              'Jenkins',
-              'Grafana',
-              'Prometheus',
-              'ELK Stack',
+              'Vagrant',
+              'Nginx',
+              'GitHub Actions',
+              'CI/CD Pipelines',
+              'Linux Server Management',
+              'Shell Scripting',
+              // 'Kubernetes',
+              // 'Terraform',
+              // 'Jenkins',
+              // 'Grafana',
+              // 'Prometheus',
+              // 'ELK Stack',
             ].map(tool => (
               <span
                 key={tool}

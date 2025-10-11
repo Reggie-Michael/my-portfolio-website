@@ -1,13 +1,7 @@
 'use client';
+import { Briefcase, Building, Calendar, MapPin, Users } from 'lucide-react';
 import React, { useState } from 'react';
-import {
-  Briefcase,
-  Users,
-  Award,
-  MapPin,
-  Calendar,
-  Building,
-} from 'lucide-react';
+import CountUpOnView from './CountUpView';
 
 const ExperienceSection: React.FC = () => {
   const [activeExperience, setActiveExperience] = useState(0);
@@ -15,106 +9,104 @@ const ExperienceSection: React.FC = () => {
   const workExperience = [
     {
       id: 1,
-      company: 'Tech Solutions Inc.',
-      role: 'Senior Full-Stack Developer',
+      company: 'ITi Training Institution',
+      role: 'Software Development Instructor',
       type: 'Full-time',
-      duration: 'Jan 2023 - Present',
-      location: 'Remote',
+      duration: 'July 2023 - September 2024',
+      location: 'On-site',
       description:
-        'Leading development of enterprise-scale applications, mentoring junior developers, and architecting scalable solutions.',
+        'Taught students the fundamentals of web development and assisted in building practical projects.',
       achievements: [
-        'Reduced application load time by 60% through optimization',
-        'Led a team of 5 developers on critical projects',
-        'Implemented CI/CD pipelines reducing deployment time by 80%',
+        'Taught 15+ students the basics of HTML and CSS',
+        'Assisted students in developing company-level projects and presentation skills',
       ],
-      technologies: ['React', 'Node.js', 'AWS', 'PostgreSQL'],
-      status: 'Current',
+      technologies: ['HTML', 'CSS', 'PowerPoint'],
+      status: 'Completed',
     },
     {
       id: 2,
-      company: 'Digital Agency Pro',
-      role: 'Full-Stack Developer & Content Creator',
+      company: 'CoffeBet',
+      role: 'Frontend Developer (Contract)',
       type: 'Contract',
-      duration: 'Mar 2022 - Dec 2022',
+      duration: 'April 2024 - September 2024',
       location: 'Hybrid',
       description:
-        'Developed client websites and created technical content for marketing campaigns.',
+        'Worked alongside a Java developer to develop a betting platform with modern frontend technologies.',
       achievements: [
-        'Delivered 15+ client projects with 100% satisfaction rate',
-        'Created video content that generated 500K+ views',
-        'Established automated workflows saving 20 hours/week',
+        'Completed contract successfully delivering all frontend requirements',
+        'Collaborated effectively in a hybrid team environment',
       ],
-      technologies: ['React', 'Next.js', 'Tailwind', 'Supabase'],
+      technologies: ['React', 'Next.js', 'TailwindCSS'],
       status: 'Completed',
     },
     {
       id: 3,
-      company: 'StartupLab',
-      role: 'Junior Developer',
+      company: 'AfRipul Group',
+      role: 'Head of Software Department',
       type: 'Full-time',
-      duration: 'Jun 2021 - Feb 2022',
-      location: 'On-site',
+      duration: 'September 2023 - Present',
+      location: 'Hybrid',
       description:
-        'Contributed to MVP development and learned modern development practices in a fast-paced startup environment.',
+        'Leading software development for internal projects and client solutions, mentoring team members, and overseeing all technical operations.',
       achievements: [
-        'Built core features for 3 different product launches',
-        'Improved code quality through peer reviews',
-        'Participated in agile development processes',
+        'Developed multiple client websites',
+        'Delivered 5+ internal projects across web, automation, and AI workflows',
+        'Implemented scalable solutions using modern tech stack',
       ],
-      technologies: ['JavaScript', 'Python', 'MongoDB', 'Docker'],
-      status: 'Completed',
+      technologies: ['React', 'TypeScript', 'SQL', 'Node.js', 'Git'],
+      status: 'Current',
     },
   ];
 
   const collaborations = [
     {
-      partner: 'OpenSource Community',
-      type: 'Open Source Contributor',
+      partner: 'Close Friends / Personal Projects',
+      type: 'Contributor',
       description:
-        'Contributing to various open-source projects and maintaining personal repositories',
-      impact: '50+ contributions across multiple projects',
+        'Contributed to personal or close friends’ public projects, enhancing features or fixing issues',
+      impact: '10+ contributions across various projects',
     },
     {
-      partner: 'Local Tech Meetups',
-      type: 'Speaker & Organizer',
+      partner: 'Local Media Team',
+      type: 'Volunteer',
       description:
-        'Regular speaker at developer meetups and workshop facilitator',
-      impact: '500+ developers reached through presentations',
+        'Assisted in organizing and managing media coverage for a local event',
+      impact: 'Supported successful execution of event media coverage',
     },
     {
       partner: 'Freelance Clients',
       type: 'Independent Contractor',
       description:
-        'Providing development and automation services to small-medium businesses',
-      impact: '25+ successful project deliveries',
+        'Providing development, automation, and website solutions for small businesses',
+      impact: 'Completed 10+ projects independently',
     },
     {
       partner: 'Content Platforms',
       type: 'Technical Content Creator',
       description:
-        'Creating educational content about development and automation',
-      impact: '1M+ total content views across platforms',
+        'Creating content about software development, automation, AI, and brand storytelling',
+      impact: '500+ total content views across platforms',
     },
   ];
 
-  const accreditations = [
-    {
-      title: 'AWS Certified Developer',
-      issuer: 'Amazon Web Services',
-      year: '2023',
-    },
-    {
-      title: 'Google Cloud Professional',
-      issuer: 'Google Cloud',
-      year: '2023',
-    },
-    {
-      title: 'Docker Certified Associate',
-      issuer: 'Docker Inc.',
-      year: '2022',
-    },
-    { title: 'Scrum Master Certified', issuer: 'Scrum Alliance', year: '2022' },
-  ];
+  // const accreditations = [
+  //   {
+  //     title: 'AWS Certified Developer',
+  //     issuer: 'Amazon Web Services',
+  //     year: '2023',
+  //   },
+  //   {
+  //     title: 'Google Cloud Professional',
+  //     issuer: 'Google Cloud',
+  //     year: '2023',
+  //   },
+  //   {
+  //     title: 'Docker Certified Associate',
+  //     issuer: 'Docker Inc.',
+  //     year: '2022',
+  //   },
+  //   { title: 'Scrum Master Certified', issuer: 'Scrum Alliance', year: '2022' },
+  // ];
 
   return (
     <section id='experience' className='bg-white py-32 dark:bg-slate-900'>
@@ -245,6 +237,35 @@ const ExperienceSection: React.FC = () => {
                 </div>
               </div>
             </div>
+            {/* Professional Summary */}
+            <div className='bg-slate-900 p-8 text-slate-100 dark:bg-slate-950'>
+              <h4 className='mb-4 text-lg font-light tracking-wide text-slate-100'>
+                Professional Impact
+              </h4>
+              <div className='mb-6 grid grid-cols-2 gap-6 text-center'>
+                <div>
+                  <div className='mb-1 text-2xl font-extralight tracking-tight'>
+                    <CountUpOnView value={4} />+
+                  </div>
+                  <div className='text-xs font-light tracking-wider text-slate-400 uppercase'>
+                    Years Experience
+                  </div>
+                </div>
+                <div>
+                  <div className='mb-1 text-2xl font-extralight tracking-tight'>
+                    <CountUpOnView value={20} />+
+                  </div>
+                  <div className='text-xs font-light tracking-wider text-slate-400 uppercase'>
+                    Projects Delivered
+                  </div>
+                </div>
+              </div>
+              <p className='text-sm leading-relaxed font-light tracking-wide text-slate-300'>
+                Building meaningful professional relationships while delivering
+                exceptional results across diverse industries and project
+                scales.
+              </p>
+            </div>
           </div>
 
           {/* Collaborations & Accreditations */}
@@ -291,7 +312,7 @@ const ExperienceSection: React.FC = () => {
             </div>
 
             {/* Accreditations */}
-            <div>
+            {/* <div>
               <div className='mb-8 text-center'>
                 <h3 className='mb-2 text-2xl font-extralight tracking-tight text-slate-900 dark:text-slate-100'>
                   Accreditations
@@ -322,37 +343,7 @@ const ExperienceSection: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* Professional Summary */}
-            <div className='bg-slate-900 p-8 text-slate-100 dark:bg-slate-950'>
-              <h4 className='mb-4 text-lg font-light tracking-wide text-slate-100'>
-                Professional Impact
-              </h4>
-              <div className='mb-6 grid grid-cols-2 gap-6 text-center'>
-                <div>
-                  <div className='mb-1 text-2xl font-extralight tracking-tight'>
-                    5+
-                  </div>
-                  <div className='text-xs font-light tracking-wider text-slate-400 uppercase'>
-                    Years Experience
-                  </div>
-                </div>
-                <div>
-                  <div className='mb-1 text-2xl font-extralight tracking-tight'>
-                    50+
-                  </div>
-                  <div className='text-xs font-light tracking-wider text-slate-400 uppercase'>
-                    Projects Delivered
-                  </div>
-                </div>
-              </div>
-              <p className='text-sm leading-relaxed font-light tracking-wide text-slate-300'>
-                Building meaningful professional relationships while delivering
-                exceptional results across diverse industries and project
-                scales.
-              </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

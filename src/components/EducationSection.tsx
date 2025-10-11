@@ -1,83 +1,147 @@
-import React from 'react';
 import {
-  GraduationCap,
   BookOpen,
-  Award,
   Calendar,
   Code,
+  GraduationCap,
   Lightbulb,
 } from 'lucide-react';
+import React from 'react';
+import CountUpOnView from './CountUpView';
 
 const EducationSection: React.FC = () => {
   const education = [
     {
-      institution: 'University of Lagos',
-      degree: 'Bachelor of Science in Computer Science',
-      year: '2018-2022',
+      institution: 'De-Pillars College School',
+      degree: 'Art Student',
+      year: '2016-2020',
       description:
-        'Foundation in computer science principles, algorithms, and software engineering',
+        'Studied visual arts and creative expression, building foundational skills in design and aesthetics.',
       type: 'Formal Education',
     },
     {
       institution: 'IT Training Center',
       degree: 'Full-Stack Development Certification',
-      year: '2022',
+      year: '2023',
       description:
-        'Intensive program covering modern web development technologies and best practices',
+        'Comprehensive program covering modern web development technologies including React, Node.js, and database management.',
       type: 'Professional Training',
     },
     {
       institution: 'Udemy',
-      degree: 'Advanced React & Node.js',
+      degree: 'Advanced React',
       year: '2023',
       description:
-        'Specialized courses in advanced React patterns and scalable Node.js applications',
+        'Specialized courses focused on advanced React patterns, hooks, state management, and scalable application architecture.',
       type: 'Online Learning',
     },
     {
+      institution: 'Udemy & Other Online Platforms',
+      degree: 'Linux Management & Kali Tools',
+      year: '2024',
+      description:
+        'Hands-on learning of Linux system administration, networking, and penetration testing with Kali Linux and essential networking tools.',
+      type: 'Online Learning',
+    },
+    {
+      institution: 'Udemy & Other Online Platforms',
+      degree: 'DevOps & Vagrant',
+      year: '2025',
+      description:
+        'Studying DevOps practices, containerization, and environment provisioning with Vagrant, alongside CI/CD workflow implementation.',
+      type: 'Professional Training',
+    },
+    {
+      institution: 'TRW',
+      degree: 'Content Creation',
+      year: '2025',
+      description:
+        'Learning video production, storytelling, and digital content strategies for impactful communication.',
+      type: 'Professional Training',
+    },
+    {
+      institution: 'TRW',
+      degree: 'AI & Automation',
+      year: '2025',
+      description:
+        'Exploring artificial intelligence applications and automation workflows to optimize business processes.',
+      type: 'Professional Training',
+    },
+    {
       institution: 'Various Online Platforms',
-      degree: 'Continuous Learning in AI/ML',
+      degree: 'Continuous Learning in AI, ML, and Emerging Skills',
       year: 'Ongoing',
       description:
-        'Staying current with artificial intelligence and machine learning technologies',
+        'Consistently upgrading skills in AI, machine learning, and other technology trends for professional growth.',
       type: 'Self-Directed Learning',
     },
   ];
 
   const skillTimeline = [
+    // {
+    //   year: '2016-2020',
+    //   skills: [
+    //     {
+    //       name: 'Art & Design',
+    //       source: 'De-Pillars P College',
+    //       level: 'Foundation',
+    //     },
+    //   ],
+    // },
     {
-      year: '2018',
+      year: '2021',
       skills: [
         {
-          name: 'HTML/CSS',
-          source: 'University Coursework',
+          name: 'Video Editing',
+          source: 'Personal Projects',
           level: 'Foundation',
         },
-        { name: 'JavaScript Basics', source: 'Self-Study', level: 'Beginner' },
       ],
     },
     {
-      year: '2019',
+      year: '2022',
       skills: [
         {
-          name: 'Python',
-          source: 'University Projects',
+          name: 'Video Production',
+          source: 'Personal Projects',
           level: 'Intermediate',
         },
+      ],
+    },
+    {
+      year: '2023 (Early)',
+      skills: [
+        { name: 'HTML/CSS', source: 'IT Training Center', level: 'Foundation' },
         {
-          name: 'Database Design',
-          source: 'Academic Curriculum',
-          level: 'Foundation',
+          name: 'JavaScript',
+          source: 'Self Study',
+          level: 'Intermediate',
         },
+      ],
+    },
+    {
+      year: '2023 (Mid)',
+      skills: [
         {
           name: 'Git Version Control',
-          source: 'Open Source Contributions',
+          source: 'Contributions & Udemy',
           level: 'Intermediate',
         },
+        { name: 'Python', source: 'Personal Projects', level: 'Intermediate' },
       ],
     },
     {
-      year: '2020',
+      year: '2023 (Late)',
+      skills: [
+        {
+          name: 'RESTful APIs',
+          source: 'Personal/Company Projects',
+          level: 'Intermediate',
+        },
+        { name: 'Node.js', source: 'Freelance Work', level: 'Intermediate' },
+      ],
+    },
+    {
+      year: '2024 (Early)',
       skills: [
         {
           name: 'React.js',
@@ -86,95 +150,82 @@ const EducationSection: React.FC = () => {
         },
         { name: 'Node.js', source: 'Freelance Work', level: 'Intermediate' },
         {
-          name: 'RESTful APIs',
-          source: 'Industry Practice',
-          level: 'Advanced',
+          name: 'Linux Management & Kali Tools',
+          source: 'Udemy & Online Platforms',
+          level: 'Intermediate',
         },
       ],
     },
     {
-      year: '2021',
+      year: '2024 (Late)',
       skills: [
+        {
+          name: 'CI/CD Pipelines',
+          source: 'Company Projects',
+          level: 'Intermediate',
+        },
+
+        {
+          name: 'Technical Leadership',
+          source: 'Team Management',
+          level: 'Advanced',
+        },
+        {
+          name: 'Analytics',
+          source: 'Company Projects',
+          level: 'Intermediate',
+        },
         {
           name: 'TypeScript',
           source: 'Professional Development',
           level: 'Advanced',
         },
         { name: 'Docker', source: 'DevOps Learning', level: 'Intermediate' },
+      ],
+    },
+    {
+      year: '2025',
+      skills: [
+        {
+          name: 'Microservices Architecture',
+          source: 'Company Projects',
+          level: 'Beginner',
+        },
         {
           name: 'AWS Services',
           source: 'Cloud Certification Path',
           level: 'Intermediate',
         },
-      ],
-    },
-    {
-      year: '2022',
-      skills: [
         {
-          name: 'Kubernetes',
-          source: 'Enterprise Projects',
-          level: 'Advanced',
+          name: 'DevOps & Vagrant',
+          source: 'Professional Learning',
+          level: 'Intermediate',
         },
+
         {
-          name: 'GraphQL',
-          source: 'Modern API Development',
-          level: 'Advanced',
-        },
-        {
-          name: 'CI/CD Pipelines',
-          source: 'Production Deployment',
-          level: 'Expert',
-        },
-      ],
-    },
-    {
-      year: '2023',
-      skills: [
-        {
-          name: 'AI/ML Integration',
-          source: 'OpenAI API Projects',
+          name: 'Video Production',
+          source: 'TRW',
           level: 'Advanced',
         },
         {
           name: 'Automation Tools',
-          source: 'Make.com & Zapier',
-          level: 'Expert',
-        },
-        {
-          name: 'Video Production',
-          source: 'Content Creation',
+          source: 'TRW',
           level: 'Advanced',
         },
-      ],
-    },
-    {
-      year: '2024',
-      skills: [
         {
-          name: 'Advanced AI Workflows',
-          source: 'Custom Automation',
-          level: 'Expert',
-        },
-        {
-          name: 'Microservices Architecture',
-          source: 'Scalable Systems',
-          level: 'Expert',
-        },
-        {
-          name: 'Technical Leadership',
-          source: 'Team Management',
+          name: 'AI & ML Integration',
+          source: 'OpenAI Projects / Personal Learning',
           level: 'Advanced',
         },
       ],
     },
   ];
 
-  const certifications = [
-    { name: 'AWS Certified Developer', year: '2023' },
-    { name: 'Google Cloud Professional', year: '2023' },
-    { name: 'Docker Certified Associate', year: '2022' },
-  ];
+  // const certifications = [
+  //   { name: 'AWS Certified Developer', year: '2023' },
+  //   { name: 'Google Cloud Professional', year: '2023' },
+  //   { name: 'Docker Certified Associate', year: '2022' },
+  // ];
 
   const getLevelColor = (level: string) => {
     switch (level) {
@@ -272,7 +323,7 @@ const EducationSection: React.FC = () => {
               </div>
 
               {/* Certifications */}
-              <div className='mt-24 text-center'>
+              {/* <div className='mt-24 text-center'>
                 <div className='mx-auto max-w-2xl'>
                   <div className='mb-8 flex items-center justify-center'>
                     <div className='mr-3 h-6 w-px bg-slate-300 dark:bg-slate-600'></div>
@@ -299,21 +350,20 @@ const EducationSection: React.FC = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Learning Philosophy */}
               <div className='mt-24 text-center'>
                 <div className='mx-auto max-w-3xl bg-slate-900 p-12 text-slate-100 dark:bg-slate-950'>
                   <Lightbulb className='mx-auto mb-6 h-6 w-6 text-slate-400' />
                   <blockquote className='mb-6 text-lg leading-relaxed font-extralight tracking-wide italic'>
-                    &quot;Mastery is not a destination but a continuous journey
-                    of deliberate practice, intellectual curiosity, and the
-                    courage to embrace complexity.&quot;
+                    &quot;Show up everyday with the aim of becoming 1%
+                    better.&quot;
                   </blockquote>
                   <div className='grid grid-cols-3 gap-8 text-center'>
                     <div>
                       <div className='mb-1 text-2xl font-extralight tracking-tight'>
-                        7+
+                        <CountUpOnView value={4} />+
                       </div>
                       <div className='text-xs font-light tracking-wider text-slate-400 uppercase'>
                         Years Learning
@@ -321,7 +371,7 @@ const EducationSection: React.FC = () => {
                     </div>
                     <div>
                       <div className='mb-1 text-2xl font-extralight tracking-tight'>
-                        25+
+                        <CountUpOnView value={15} />+
                       </div>
                       <div className='text-xs font-light tracking-wider text-slate-400 uppercase'>
                         Skills Mastered
@@ -355,7 +405,7 @@ const EducationSection: React.FC = () => {
                 <div key={yearData.year} className='group'>
                   {/* Year Header */}
                   <div className='mb-6 flex items-center'>
-                    <div className='mr-4 flex h-12 w-12 items-center justify-center border border-slate-200 bg-slate-100 transition-all duration-500 group-hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:group-hover:border-slate-600'>
+                    <div className='mr-4 flex h-12 w-18 items-center justify-center border border-slate-200 bg-slate-100 text-center transition-all duration-500 group-hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:group-hover:border-slate-600'>
                       <span className='text-sm font-light tracking-wider text-slate-600 dark:text-slate-400'>
                         {yearData.year}
                       </span>

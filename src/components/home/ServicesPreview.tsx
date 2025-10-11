@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code2, Bot, Film, Cloud, ArrowRight } from 'lucide-react';
+import { Code2, Bot, Film, Cloud, ArrowRight, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 
 const ServicesPreview: React.FC = () => {
@@ -42,12 +42,11 @@ const ServicesPreview: React.FC = () => {
     <section className='bg-slate-50 py-32 dark:bg-slate-800'>
       <div className='mx-auto max-w-6xl px-6 lg:px-8'>
         <div className='mb-24 text-center'>
-          <div className='mb-8 flex items-center justify-center'>
-            <div className='mr-4 h-8 w-px bg-slate-300 dark:bg-slate-600'></div>
+          <div className='section-header-line'>
+            <Briefcase className='mr-3 h-6 w-6 text-gray-500 dark:text-slate-400' />
             <span className='text-xs font-light tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400'>
               Services
             </span>
-            <div className='ml-4 h-8 w-px bg-slate-300 dark:bg-slate-600'></div>
           </div>
           <h2 className='font-display mb-6 text-5xl font-extralight tracking-tight text-slate-900 md:text-6xl dark:text-slate-100'>
             What I <span className='font-light italic'>Offer</span>

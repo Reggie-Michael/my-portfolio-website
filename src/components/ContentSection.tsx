@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
-import { Play, Film, Award, Eye } from 'lucide-react';
+import { Award, Eye, Film, Play, YoutubeIcon } from 'lucide-react';
 import Image from 'next/image';
+import React, { useState } from 'react';
+import CountUpOnView from './CountUpView';
 
 const ContentSection: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
@@ -9,37 +10,43 @@ const ContentSection: React.FC = () => {
   const videoProjects = [
     {
       id: 1,
-      title: 'Brand Commercial',
-      description: 'Cinematic brand story that increased engagement by 300%',
-      thumbnail:
-        'https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&w=600',
-      duration: '2:30',
-      category: 'Commercial',
+      title: 'Brand Launch Prologue',
+      description:
+        'A cinematic introduction marking the launch of my brand — capturing the vision, emotion, and identity behind it.',
+      thumbnail: '/images/Logo 2.gif',
+      duration: '0:36',
+      category: 'Launch',
+      videoUrl: '/videos/brand-launch.mp4',
+      link: 'https://youtu.be/Dad84IUdIww',
     },
     {
       id: 2,
-      title: 'Product Launch',
-      description: 'Dynamic product showcase with motion graphics',
-      thumbnail:
-        'https://images.pexels.com/photos/7991224/pexels-photo-7991224.jpeg?auto=compress&cs=tinysrgb&w=600',
-      duration: '1:45',
-      category: 'Product',
+      title: 'Brand Commercial',
+      description:
+        'A powerful brand commercial that increased audience engagement by 30% through storytelling and visual impact.',
+      thumbnail: '/images/AfR-commercial.gif',
+      duration: '0:23',
+      category: 'Commercial',
+      videoUrl: '/videos/brand-commercial.mp4',
+      link: 'https://youtu.be/Lfd9I5RBQZI',
     },
     {
       id: 3,
-      title: 'Corporate Documentary',
-      description: 'Behind-the-scenes story of innovation and growth',
-      thumbnail:
-        'https://images.pexels.com/photos/7991225/pexels-photo-7991225.jpeg?auto=compress&cs=tinysrgb&w=600',
-      duration: '5:20',
-      category: 'Documentary',
+      title: 'Company Story Video',
+      description:
+        'A storytelling piece that introduces who the company is — its purpose, people, and journey in an emotional narrative.',
+      thumbnail: '/images/AfR-story.gif',
+
+      duration: '0:39',
+      category: 'Storytelling',
+      videoUrl: '/videos/company-story.mp4',
     },
   ];
 
   const achievements = [
-    { icon: Eye, value: '2M+', label: 'Total Views' },
-    { icon: Award, value: '50+', label: 'Projects' },
-    { icon: Film, value: '95%', label: 'Client Retention' },
+    { icon: Eye, value: '500', suffix: '+', label: 'Total Views' },
+    { icon: Award, value: '5', suffix: '', label: 'Projects' },
+    { icon: Film, value: '95', suffix: '%', label: 'Client Retention' },
   ];
 
   return (
@@ -47,7 +54,7 @@ const ContentSection: React.FC = () => {
       <div className='mx-auto max-w-6xl px-6 lg:px-8'>
         {/* Section Header */}
         <div className='mb-20 text-center'>
-          <div className='mb-6 flex items-center justify-center'>
+          <div className='section-header-line'>
             <Film className='mr-3 h-6 w-6 text-gray-600 dark:text-gray-400' />
             <span className='text-sm font-light tracking-wider text-gray-600 uppercase dark:text-gray-400'>
               Content Creation
@@ -70,7 +77,8 @@ const ContentSection: React.FC = () => {
                 <achievement.icon className='h-6 w-6 text-gray-600 dark:text-gray-400' />
               </div>
               <div className='mb-2 text-2xl font-light text-gray-900 dark:text-white'>
-                {achievement.value}
+                <CountUpOnView value={+achievement.value} />
+                {achievement.suffix}
               </div>
               <div className='font-light text-gray-600 dark:text-gray-300'>
                 {achievement.label}
@@ -137,27 +145,64 @@ const ContentSection: React.FC = () => {
 
                 {/* Expanded Content */}
                 {activeVideo === project.id && (
-                  <div className='absolute inset-0 flex items-center justify-center bg-white/95 p-8 backdrop-blur-sm dark:bg-slate-800/95'>
-                    <div className='text-center'>
-                      <div className='mx-auto mb-6 flex h-16 w-16 items-center justify-center border border-gray-300 dark:border-gray-600'>
-                        <Play className='h-8 w-8 text-gray-600 dark:text-gray-400' />
+                  <div className='absolute inset-0 flex items-center justify-center bg-white/95 backdrop-blur-sm dark:bg-slate-800/95'>
+                    {project.videoUrl ? (
+                      <div className='relative w-full max-w-3xl overflow-hidden rounded-xl shadow-lg'>
+                        <video
+                          src={project.videoUrl}
+                          // controls
+                          loop
+                          autoPlay
+                          className='aspect-square size-full rounded-xl'
+                        />
+                        <button
+                          onClick={e => {
+                            e.stopPropagation();
+                            setActiveVideo(null);
+                          }}
+                          className='absolute top-1 right-4 cursor-pointer rounded-md bg-gray-900/80 px-3 py-1.5 text-sm text-white hover:bg-gray-800 dark:bg-white/80 dark:text-gray-900 dark:hover:bg-white'
+                        >
+                          Close
+                        </button>
+                        {project.link && (
+                          <button
+                            title='View on Youtube'
+                            onClick={e => {
+                              e.stopPropagation();
+                              window.open(
+                                project.link,
+                                '_blank',
+                                'noopener,noreferrer'
+                              );
+                            }}
+                            className='absolute top-1 left-4 cursor-pointer rounded-md bg-gray-900/80 px-2 py-1 text-sm text-white hover:bg-gray-800 dark:bg-white/80 dark:text-gray-900 dark:hover:bg-white'
+                          >
+                            <YoutubeIcon className='size-6 fill-red-600 text-white' />
+                          </button>
+                        )}
                       </div>
-                      <h4 className='mb-4 text-xl font-medium text-gray-900 dark:text-white'>
-                        Coming Soon
-                      </h4>
-                      <p className='mb-6 font-light text-gray-600 dark:text-gray-300'>
-                        Full video preview will be available here
-                      </p>
-                      <button
-                        onClick={e => {
-                          e.stopPropagation();
-                          setActiveVideo(null);
-                        }}
-                        className='bg-gray-900 px-6 py-2 font-medium text-white transition-colors duration-200 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100'
-                      >
-                        Close Preview
-                      </button>
-                    </div>
+                    ) : (
+                      <div className='m-4 text-center'>
+                        <div className='mx-auto mb-6 flex h-16 w-16 items-center justify-center border border-gray-300 dark:border-gray-600'>
+                          <Play className='h-8 w-8 text-gray-600 dark:text-gray-400' />
+                        </div>
+                        <h4 className='mb-4 text-xl font-medium text-gray-900 dark:text-white'>
+                          Coming Soon
+                        </h4>
+                        <p className='mb-6 font-light text-gray-600 dark:text-gray-300'>
+                          Full video preview will be available here
+                        </p>
+                        <button
+                          onClick={e => {
+                            e.stopPropagation();
+                            setActiveVideo(null);
+                          }}
+                          className='bg-gray-900 px-6 py-2 font-medium text-white transition-colors duration-200 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100'
+                        >
+                          Close Preview
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

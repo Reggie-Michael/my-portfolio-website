@@ -1,27 +1,22 @@
-import React from 'react';
-import { User, ArrowRight, Award, Code, Users } from 'lucide-react';
+import { ArrowRight, User } from 'lucide-react';
 import Link from 'next/link';
+import React from 'react';
+import { AboutHighlights } from '../AboutSection';
+import CountUpOnView from '../CountUpView';
 
 const AboutPreview: React.FC = () => {
-  const highlights = [
-    { icon: Code, value: '5+', label: 'Years Experience' },
-    { icon: Award, value: '50+', label: 'Projects Completed' },
-    { icon: Users, value: '100%', label: 'Client Satisfaction' },
-  ];
-
+  const parentRef = React.useRef<HTMLDivElement>(null);
   return (
     <section className='bg-slate-50 py-32 dark:bg-slate-800'>
       <div className='mx-auto max-w-6xl px-6 lg:px-8'>
         <div className='grid grid-cols-1 items-center gap-20 lg:grid-cols-2'>
           {/* Content */}
           <div className='space-y-8'>
-            <div className='mb-8 flex items-center justify-start'>
-              <div className='mr-4 h-8 w-px bg-slate-300 dark:bg-slate-600'></div>
+            <div className='section-header-line justify-start'>
               <User className='mr-3 h-5 w-5 text-slate-500 dark:text-slate-400' />
               <span className='text-xs font-light tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400'>
                 About Michael
               </span>
-              <div className='ml-4 h-8 w-px bg-slate-300 dark:bg-slate-600'></div>
             </div>
 
             <h2 className='font-display text-4xl font-extralight tracking-tight text-slate-900 md:text-5xl dark:text-slate-100'>
@@ -55,9 +50,9 @@ const AboutPreview: React.FC = () => {
           </div>
 
           {/* Stats */}
-          <div className='space-y-8'>
+          <div className='space-y-8' ref={parentRef}>
             <div className='grid grid-cols-1 gap-8'>
-              {highlights.map((highlight, index) => (
+              {AboutHighlights.map((highlight, index) => (
                 <div
                   key={index}
                   className='group border border-slate-200 bg-white p-8 text-center transition-all duration-300 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-slate-600'
@@ -66,7 +61,12 @@ const AboutPreview: React.FC = () => {
                     <highlight.icon className='h-6 w-6 text-slate-600 dark:text-slate-400' />
                   </div>
                   <div className='font-display mb-2 text-3xl font-extralight tracking-tight text-slate-900 dark:text-slate-100'>
-                    {highlight.value}
+                    {/* {highlight.value} */}
+                    <CountUpOnView
+                      value={+highlight.value}
+                      // userRef={parentRef}
+                    />
+                    {highlight.suffix}
                   </div>
                   <div className='font-light tracking-wide text-slate-600 dark:text-slate-400'>
                     {highlight.label}

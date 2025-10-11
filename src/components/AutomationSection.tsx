@@ -1,15 +1,17 @@
 'use client';
-import React, { useState, useEffect } from 'react';
 import {
   ArrowRight,
-  Settings,
-  Bot,
-  BarChart3,
-  CheckCircle,
-  Zap,
   BarChart,
+  BarChart3,
+  Bot,
+  CheckCircle,
+  PhoneCall,
   Play,
+  Settings,
+  Zap,
 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import CountUpOnView from './CountUpView';
 
 const AutomationSection: React.FC = () => {
   const [activeNode, setActiveNode] = useState<number | null>(null);
@@ -69,11 +71,25 @@ const AutomationSection: React.FC = () => {
       description:
         'Intelligent chatbots that handle 80% of customer queries automatically',
       features: [
-        '24/7 Availability',
-        'Multi-language Support',
-        'Learning Capabilities',
+        '24/7 Smart Availability',
+        'Adaptive Learning & Improvement',
+        // 'Business-Aware Operations',
+        'Intelligent Redirection & Handover',
       ],
       icon: Bot,
+      link: 'https://creator.voiceflow.com/share/685da4d658379ac272fc4a53/development',
+    },
+    {
+      title: 'Automated Call System',
+      description:
+        'An intelligent voice system that automatically calls customers to confirm their recent booking date and time, reducing no-shows and improving scheduling efficiency.',
+      features: [
+        'AI Voice Confirmation',
+        'Booking Verification',
+        'Smart Call Flow Automation',
+      ],
+      icon: PhoneCall,
+      link: 'https://vapi.ai/?demo=true&shareKey=defbff64-37a1-498b-87fc-43c4c211fd83&assistantId=afd788dd-131e-4410-9147-d5bd570277f8',
     },
     {
       title: 'Lead Generation',
@@ -85,12 +101,12 @@ const AutomationSection: React.FC = () => {
       ],
       icon: BarChart3,
     },
-    {
-      title: 'Business Process Automation',
-      description: 'Streamline operations with custom workflow automation',
-      features: ['Data Processing', 'Report Generation', 'Task Scheduling'],
-      icon: Settings,
-    },
+    // {
+    //   title: 'Business Process Automation',
+    //   description: 'Streamline operations with custom workflow automation',
+    //   features: ['Data Processing', 'Report Generation', 'Task Scheduling'],
+    //   icon: Settings,
+    // },
   ];
 
   return (
@@ -98,7 +114,7 @@ const AutomationSection: React.FC = () => {
       <div className='mx-auto max-w-6xl px-6 lg:px-8'>
         {/* Section Header */}
         <div className='mb-20 text-center'>
-          <div className='mb-6 flex items-center justify-center'>
+          <div className='section-header-line'>
             <Settings className='mr-3 h-6 w-6 text-gray-600 dark:text-gray-400' />
             <span className='text-sm font-light tracking-wider text-gray-600 uppercase dark:text-gray-400'>
               AI & Automation
@@ -274,30 +290,45 @@ const AutomationSection: React.FC = () => {
               key={index}
               className='group overflow-hidden border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-md dark:border-gray-700 dark:bg-slate-900'
             >
-              <div className='p-8'>
-                <div className='mb-6 flex h-12 w-12 items-center justify-center border border-gray-200 transition-colors duration-300 group-hover:border-gray-300 dark:border-gray-600 dark:group-hover:border-gray-500'>
-                  <service.icon className='h-6 w-6 text-gray-600 dark:text-gray-400' />
+              <div className='flex h-full flex-col justify-between p-8'>
+                <div className='content'>
+                  <div className='mb-6 flex h-12 w-12 items-center justify-center border border-gray-200 transition-colors duration-300 group-hover:border-gray-300 dark:border-gray-600 dark:group-hover:border-gray-500'>
+                    <service.icon className='h-6 w-6 text-gray-600 dark:text-gray-400' />
+                  </div>
+                  <h3 className='mb-4 text-lg font-medium text-gray-900 dark:text-white'>
+                    {service.title}
+                  </h3>
+                  <p className='mb-6 leading-relaxed font-light text-gray-600 dark:text-gray-300'>
+                    {service.description}
+                  </p>
+
+                  <div className='mb-6 space-y-2'>
+                    {service.features.map(feature => (
+                      <div
+                        key={feature}
+                        className='flex items-center space-x-2'
+                      >
+                        <div className='h-1 w-1 rounded-full bg-gray-400 dark:bg-gray-500'></div>
+                        <span className='text-sm font-light text-gray-600 dark:text-gray-300'>
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <h3 className='mb-4 text-lg font-medium text-gray-900 dark:text-white'>
-                  {service.title}
-                </h3>
-                <p className='mb-6 leading-relaxed font-light text-gray-600 dark:text-gray-300'>
-                  {service.description}
-                </p>
-
-                <div className='mb-6 space-y-2'>
-                  {service.features.map(feature => (
-                    <div key={feature} className='flex items-center space-x-2'>
-                      <div className='h-1 w-1 rounded-full bg-gray-400 dark:bg-gray-500'></div>
-                      <span className='text-sm font-light text-gray-600 dark:text-gray-300'>
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <button className='group flex w-full items-center justify-center space-x-2 bg-gray-900 px-6 py-3 font-medium text-white transition-all duration-300 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100'>
+                <button
+                  className={`group flex w-full items-center justify-center space-x-2 bg-gray-900 px-6 py-3 font-medium text-white transition-all duration-300 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 ${!!service.link ? 'cursor-pointer' : ''}`}
+                  onClick={() => {
+                    if (service.link) {
+                      window.open(
+                        service.link,
+                        '_blank',
+                        'noopener,noreferrer'
+                      );
+                    }
+                  }}
+                >
                   <span>Learn More</span>
                   <ArrowRight className='h-4 w-4 transition-transform duration-200 group-hover:translate-x-1' />
                 </button>
@@ -312,29 +343,36 @@ const AutomationSection: React.FC = () => {
             Automation Results
           </h3>
           <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
-            <div>
-              <div className='mb-2 text-3xl font-light'>75%</div>
-              <div className='font-light text-gray-300 dark:text-gray-400'>
-                Cost Reduction
+            {PerformanceMetrics.map((metric, index) => (
+              <div key={index}>
+                <div className='mb-2 text-3xl font-light'>
+                  {/* Animate the number if needed */}
+                  {/* {metric.suffix.includes('%') ? (
+                    <>
+                      <CountUpOnView value={metric.value} />
+                      {metric.suffix}
+                    </>
+                  ) : (
+                    `${metric.value}${metric.suffix}`
+                  )} */}
+                  <CountUpOnView value={metric.value} />
+                  {metric.suffix}
+                </div>
+                <div className='font-light text-gray-300 dark:text-gray-400'>
+                  {metric.label}
+                </div>
               </div>
-            </div>
-            <div>
-              <div className='mb-2 text-3xl font-light'>90%</div>
-              <div className='font-light text-gray-300 dark:text-gray-400'>
-                Time Savings
-              </div>
-            </div>
-            <div>
-              <div className='mb-2 text-3xl font-light'>24/7</div>
-              <div className='font-light text-gray-300 dark:text-gray-400'>
-                Availability
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
   );
 };
+const PerformanceMetrics = [
+  { value: 75, suffix: '%', label: 'Cost Reduction' },
+  { value: 90, suffix: '%', label: 'Time Savings' },
+  { value: 24, suffix: '/7', label: 'Availability' },
+];
 
 export default AutomationSection;

@@ -1,33 +1,42 @@
-import React from 'react';
-import { BookOpen, Code, Users, TrendingUp, ExternalLink } from 'lucide-react';
-import Image from 'next/image';
 import { LogoTransparent } from '@/app/assets';
+import {
+  BookOpen,
+  Cpu,
+  ExternalLink,
+  Flame,
+  Tag,
+  Terminal,
+} from 'lucide-react';
+import Image from 'next/image';
+import React from 'react';
+import CountUpOnView from './CountUpView';
 
 const PersonalBrandSection: React.FC = () => {
   const pillars = [
     {
-      title: 'The Record',
+      title: 'The Codex',
       icon: BookOpen,
       description:
-        'Documenting every step of the development journey, from first lines of code to complex architectures.',
+        'The living record — documenting every phase of the builder’s evolution, from broken builds to silent wins.',
     },
     {
       title: 'The Logs',
-      icon: Code,
+      icon: Terminal,
       description:
-        'Technical insights, problem-solving approaches, and lessons learned through real-world challenges.',
+        'Where the process is decoded. Reflections, late-night fixes, and real dev lessons captured in motion.',
+    },
+
+    {
+      title: 'The System',
+      icon: Cpu,
+      description:
+        'Structure, discipline, and inner architecture — the frameworks behind every line of growth.',
     },
     {
-      title: 'The Network',
-      icon: Users,
+      title: 'The Flame',
+      icon: Flame,
       description:
-        'Building meaningful connections, sharing knowledge, and growing together with the developer community.',
-    },
-    {
-      title: 'The Growth',
-      icon: TrendingUp,
-      description:
-        'Continuously evolving skills, embracing new technologies, and pushing creative boundaries.',
+        'The silent force behind progress — relentless growth, inner fire, and devotion to the craft.',
     },
   ];
 
@@ -50,12 +59,11 @@ const PersonalBrandSection: React.FC = () => {
       <div className='relative z-10 mx-auto max-w-6xl px-6 lg:px-8'>
         {/* Section Header */}
         <div className='mb-24 text-center'>
-          <div className='mb-8 flex items-center justify-center'>
-            <div className='mr-4 h-8 w-px bg-slate-300 dark:bg-slate-600'></div>
+          <div className='section-header-line'>
+            <Tag className='mr-3 h-5 w-5 text-slate-500 dark:text-slate-400' />
             <span className='text-xs font-light tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400'>
               Personal Brand
             </span>
-            <div className='ml-4 h-8 w-px bg-slate-300 dark:bg-slate-600'></div>
           </div>
 
           {/* Brand Logo */}
@@ -126,7 +134,7 @@ const PersonalBrandSection: React.FC = () => {
               </div>
               <div className='border border-slate-700/50 bg-white p-8 text-center dark:bg-slate-800/30'>
                 <div className='mb-2 text-3xl font-extralight tracking-tight'>
-                  +1%
+                  +<CountUpOnView value={1} duration={1500} />%
                 </div>
                 <div className='text-xs font-light tracking-wider text-slate-500 uppercase dark:text-slate-400'>
                   Daily

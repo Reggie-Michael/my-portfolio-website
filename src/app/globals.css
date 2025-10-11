@@ -57,12 +57,12 @@
 }
 
 @utility section-header-line {
-  @apply flex items-center justify-center mb-8;
+  @apply flex items-center justify-center mb-6;
 
   &::before,
   &::after {
     content: '';
-    @apply w-16 h-px bg-slate-300 dark:bg-slate-600;
+    @apply h-8 w-px bg-slate-300 dark:bg-slate-600;
   }
 
   &::before {
@@ -203,4 +203,8 @@
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-duration: 300ms;
   transition-timing-function: ease-out;
+}
+
+.mask-person-shape {
+  clip-path: polygon(30% 0%, 70% 0%, 100% 20%, 95% 80%, 70% 100%, 30% 100%, 5% 80%, 0% 20%);
 }

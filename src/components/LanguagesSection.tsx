@@ -1,5 +1,7 @@
+'use client';
+import { Globe, Languages, MessageSquare, Mic, Users } from 'lucide-react';
 import React from 'react';
-import { Globe, MessageSquare, Users, Mic } from 'lucide-react';
+import { AnimatedSkillBar } from './AnimatedSkillBar';
 
 const LanguagesSection: React.FC = () => {
   const languages = [
@@ -42,10 +44,10 @@ const LanguagesSection: React.FC = () => {
   ];
 
   const communicationSkills = [
-    { skill: 'Technical Writing', level: 'Expert' },
+    { skill: 'Technical Writing', level: 'Intermediate' },
     { skill: 'Client Presentations', level: 'Advanced' },
-    { skill: 'Cross-cultural Communication', level: 'Advanced' },
-    { skill: 'Documentation', level: 'Expert' },
+    { skill: 'Cross-cultural Communication', level: 'Intermediate' },
+    { skill: 'Documentation', level: 'Intermediate' },
   ];
 
   return (
@@ -53,8 +55,8 @@ const LanguagesSection: React.FC = () => {
       <div className='mx-auto max-w-6xl px-6 lg:px-8'>
         {/* Section Header */}
         <div className='mb-20 text-center'>
-          <div className='mb-6 flex items-center justify-center'>
-            <Globe className='mr-3 h-6 w-6 text-gray-600 dark:text-gray-400' />
+          <div className='section-header-line'>
+            <Languages className='mr-3 h-6 w-6 text-gray-600 dark:text-gray-400' />
             <span className='text-sm font-light tracking-wider text-gray-600 uppercase dark:text-gray-400'>
               Languages
             </span>
@@ -78,50 +80,15 @@ const LanguagesSection: React.FC = () => {
 
             <div className='space-y-6'>
               {languages.map(lang => (
-                <div
+                <AnimatedSkillBar
                   key={lang.language}
-                  className='group border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md dark:border-gray-700 dark:bg-slate-900'
-                >
-                  <div className='flex items-start space-x-4'>
-                    {/* Language Icon */}
-                    <div className='flex h-12 w-12 items-center justify-center border border-gray-200 bg-gray-50 transition-colors duration-300 group-hover:border-gray-300 dark:border-gray-600 dark:bg-slate-800 dark:group-hover:border-gray-500'>
-                      <lang.icon className='h-5 w-5 text-gray-600 dark:text-gray-400' />
-                    </div>
-
-                    <div className='flex-1'>
-                      <div className='mb-3 flex items-center justify-between'>
-                        <div className='flex items-center space-x-3'>
-                          <span className='text-2xl'>{lang.flag}</span>
-                          <div>
-                            <h4 className='text-lg font-medium text-gray-900 dark:text-white'>
-                              {lang.language}
-                            </h4>
-                            <span className='text-sm font-light text-gray-600 dark:text-gray-300'>
-                              {lang.level}
-                            </span>
-                          </div>
-                        </div>
-                        <div className='text-right'>
-                          <div className='text-lg font-light text-gray-900 dark:text-white'>
-                            {lang.proficiency}%
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Proficiency Bar */}
-                      <div className='mb-3 h-2 w-full bg-gray-200 dark:bg-gray-700'>
-                        <div
-                          className='h-2 bg-gray-900 transition-all duration-1000 ease-out dark:bg-white'
-                          style={{ width: `${lang.proficiency}%` }}
-                        ></div>
-                      </div>
-
-                      <p className='text-sm leading-relaxed font-light text-gray-600 dark:text-gray-300'>
-                        {lang.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                  label={lang.language}
+                  icon={lang.icon}
+                  flag={lang.flag}
+                  level={lang.level}
+                  proficiency={lang.proficiency}
+                  description={lang.description}
+                />
               ))}
             </div>
           </div>
@@ -192,7 +159,7 @@ const LanguagesSection: React.FC = () => {
                 <div className='flex items-center space-x-2'>
                   <div className='h-2 w-2 rounded-full bg-gray-400 dark:bg-gray-500'></div>
                   <span className='text-sm font-light text-gray-600 dark:text-gray-300'>
-                    French: Business conversation level by 2025
+                    French: Business conversation level by Mid-2026
                   </span>
                 </div>
                 <div className='flex items-center space-x-2'>
@@ -204,7 +171,7 @@ const LanguagesSection: React.FC = () => {
                 <div className='flex items-center space-x-2'>
                   <div className='h-2 w-2 rounded-full bg-gray-400 dark:bg-gray-500'></div>
                   <span className='text-sm font-light text-gray-600 dark:text-gray-300'>
-                    Technical vocabulary expansion in all languages
+                    Technical vocabulary expansion in all known languages
                   </span>
                 </div>
               </div>
