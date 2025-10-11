@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Mail,
   Phone,
@@ -146,6 +146,8 @@ const ContactSection: React.FC = () => {
     { icon: Linkedin, href: '#', label: 'LinkedIn' },
     { icon: Calendar, href: '#', label: 'Schedule Call' },
   ];
+
+
 
   const renderStars = (
     rating: number,

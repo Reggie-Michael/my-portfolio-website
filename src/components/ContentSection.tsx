@@ -1,7 +1,7 @@
 'use client';
 import { Award, Eye, Film, Play, YoutubeIcon } from 'lucide-react';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CountUpOnView from './CountUpView';
 
 const ContentSection: React.FC = () => {
@@ -148,12 +148,17 @@ const ContentSection: React.FC = () => {
                   <div className='absolute inset-0 flex items-center justify-center bg-white/95 backdrop-blur-sm dark:bg-slate-800/95'>
                     {project.videoUrl ? (
                       <div className='relative w-full max-w-3xl overflow-hidden rounded-xl shadow-lg'>
-                        <video
+                        {/* <video
                           src={project.videoUrl}
-                          // controls
+                          controls
+                          muted
                           loop
                           autoPlay
                           className='aspect-square size-full rounded-xl'
+                        /> */}
+                        <VideoPlayer
+                          videoUrl={project.videoUrl}
+                          active={activeVideo == project.id}
                         />
                         <button
                           onClick={e => {
@@ -238,6 +243,31 @@ const ContentSection: React.FC = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+const VideoPlayer = ({
+  videoUrl,
+  active,
+}: {
+  videoUrl: string;
+  active: boolean;
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (active && videoRef.current) {
+      videoRef.current.play();
+    }
+  }, [active]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={videoUrl}
+      controls
+      className='aspect-square size-full rounded-xl'
+    />
   );
 };
 
